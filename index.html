@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>민정원 - PM & 개발 리더</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="bg-stone-50 text-stone-800">
+    <!-- 헤더 & 네비게이션 -->
+    <header class="fixed w-full top-0 z-50 bg-white/95 backdrop-blur-md border-b border-stone-200">
+        <nav class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-between">
+            <div class="flex items-center">
+                <a href="#home" class="text-2xl font-bold text-amber-900 hover:text-amber-700 transition">
+                    Min Jungwon
+                </a>
+            </div>
+            <ul class="hidden md:flex space-x-8 text-stone-700">
+                <li><a href="#about" class="hover:text-amber-700 transition duration-300">소개</a></li>
+                <li><a href="#skills" class="hover:text-amber-700 transition duration-300">기술</a></li>
+                <li><a href="#projects" class="hover:text-amber-700 transition duration-300">포트폴리오</a></li>
+                <li><a href="#contact" class="hover:text-amber-700 transition duration-300">연락처</a></li>
+            </ul>
+            <!-- 모바일 메뉴 토글 -->
+            <button id="menu-toggle" class="md:hidden text-2xl">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                </svg>
+            </button>
+        </nav>
+        <!-- 모바일 메뉴 -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white/95 border-t border-stone-200 px-4 py-4 text-stone-700">
+            <ul class="space-y-3">
+                <li><a href="#about" class="block hover:text-amber-700 transition">소개</a></li>
+                <li><a href="#skills" class="block hover:text-amber-700 transition">기술</a></li>
+                <li><a href="#projects" class="block hover:text-amber-700 transition">포트폴리오</a></li>
+                <li><a href="#contact" class="block hover:text-amber-700 transition">연락처</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <!-- 히어로 섹션 -->
+    <section id="home" class="min-h-screen flex items-center justify-center pt-20 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
+        <!-- 배경 이미지 오버레이 -->
+        <div class="absolute inset-0 bg-gradient-to-b from-white via-amber-50/50 to-stone-100/30 pointer-events-none"></div>
+
+        <div class="text-center max-w-4xl mx-auto relative z-10">
+            <div class="mb-8 animate-fade-in">
+                <!-- 폴라로이드 카드 스타일 프로필 -->
+                <div class="inline-block bg-white p-8 shadow-2xl transform -rotate-2 hover:rotate-0 transition-transform duration-300">
+                    <div class="w-40 h-40 mx-auto mb-6 flex items-center justify-center text-6xl bg-gradient-to-br from-amber-100 to-orange-100 rounded-sm">
+                        👨‍💼
+                    </div>
+                    <p class="text-sm text-stone-400 font-light tracking-wider">summer vibe</p>
+                </div>
+            </div>
+            <h1 class="text-5xl sm:text-6xl font-bold mb-6 text-stone-900 animate-fade-in">
+                민정원
+            </h1>
+            <p class="text-2xl sm:text-3xl font-light text-amber-900 mb-6 animate-fade-in">
+                PM & 개발 리더
+            </p>
+            <p class="text-lg sm:text-xl text-stone-700 mb-8 max-w-2xl mx-auto leading-relaxed animate-fade-in">
+                0에서 1을 만드는 기획부터 100에서 1000을 만드는 고도화까지,<br>
+                데이터 기반의 Technology-driven business system을 설계합니다.
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center animate-fade-in">
+                <a href="#projects" class="px-8 py-3 bg-stone-800 text-white hover:bg-stone-700 rounded font-semibold transition transform hover:scale-105 shadow-lg">
+                    포트폴리오 보기
+                </a>
+                <a href="#contact" class="px-8 py-3 border-2 border-amber-700 text-amber-700 hover:bg-amber-700/5 rounded font-semibold transition">
+                    연락하기
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- 소개 섹션 -->
+    <section id="about" class="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-white to-stone-50">
+        <div class="max-w-4xl mx-auto">
+            <h2 class="text-4xl font-bold mb-12 text-center text-stone-900">
+                소개
+            </h2>
+            <div class="grid md:grid-cols-2 gap-8">
+                <!-- 폴라로이드 스타일 카드 1 -->
+                <div class="bg-white border border-stone-200 rounded-sm p-8 shadow-lg hover:shadow-xl transition transform hover:-rotate-1">
+                    <h3 class="text-2xl font-bold text-amber-900 mb-4">🎯 핵심 강점</h3>
+                    <ul class="space-y-3 text-stone-700">
+                        <li class="flex items-start gap-3">
+                            <span class="text-amber-700 font-bold">✓</span>
+                            <span>문제의 본질을 구조화하여 시스템과 프로세스로 비즈니스 성장을 설계</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="text-amber-700 font-bold">✓</span>
+                            <span>제품의 생애주기 전반(0→1 구축부터 100→1000 스케일업) 리딩</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="text-amber-700 font-bold">✓</span>
+                            <span>기술적 제약과 비즈니스 요구의 최적점 발견 및 실행</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- 폴라로이드 스타일 카드 2 -->
+                <div class="bg-white border border-stone-200 rounded-sm p-8 shadow-lg hover:shadow-xl transition transform hover:rotate-1">
+                    <h3 class="text-2xl font-bold text-amber-900 mb-4">🚀 경력 이력</h3>
+                    <div class="space-y-4 text-stone-700">
+                        <div>
+                            <p class="font-semibold text-amber-900">토스 인슈어런스</p>
+                            <p class="text-sm text-stone-600">TPM & Team Leader</p>
+                            <p class="text-sm text-stone-500">금융·보험 서비스 플랫폼 구축</p>
+                        </div>
+                        <div>
+                            <p class="font-semibold text-amber-900">세인홈시스</p>
+                            <p class="text-sm text-stone-600">서비스 기획팀 / 프로젝트 총괄</p>
+                            <p class="text-sm text-stone-500">제조·고객 서비스 시스템 구축</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 기술 스택 섹션 -->
+    <section id="skills" class="py-20 px-4 sm:px-6 lg:px-8 bg-stone-100">
+        <div class="max-w-4xl mx-auto">
+            <h2 class="text-4xl font-bold mb-12 text-center text-stone-900">
+                기술 스택
+            </h2>
+            <div class="grid md:grid-cols-3 gap-6">
+                <!-- 협업 도구 -->
+                <div class="bg-white border border-stone-200 rounded-sm p-6 shadow-md hover:shadow-lg transition transform hover:scale-102">
+                    <h3 class="text-lg font-bold text-amber-900 mb-4">📋 협업 & 기획</h3>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="bg-stone-100 text-stone-700 px-3 py-1 rounded-full text-sm border border-stone-300">Notion</span>
+                        <span class="bg-stone-100 text-stone-700 px-3 py-1 rounded-full text-sm border border-stone-300">Jira</span>
+                        <span class="bg-stone-100 text-stone-700 px-3 py-1 rounded-full text-sm border border-stone-300">Slack</span>
+                        <span class="bg-stone-100 text-stone-700 px-3 py-1 rounded-full text-sm border border-stone-300">Google Workspace</span>
+                    </div>
+                </div>
+
+                <!-- 디자인 도구 -->
+                <div class="bg-white border border-stone-200 rounded-sm p-6 shadow-md hover:shadow-lg transition transform hover:scale-102">
+                    <h3 class="text-lg font-bold text-amber-900 mb-4">🎨 디자인 & UI/UX</h3>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="bg-stone-100 text-stone-700 px-3 py-1 rounded-full text-sm border border-stone-300">Figma</span>
+                        <span class="bg-stone-100 text-stone-700 px-3 py-1 rounded-full text-sm border border-stone-300">Framer</span>
+                        <span class="bg-stone-100 text-stone-700 px-3 py-1 rounded-full text-sm border border-stone-300">TDS</span>
+                    </div>
+                </div>
+
+                <!-- 시스템 & 데이터 -->
+                <div class="bg-white border border-stone-200 rounded-sm p-6 shadow-md hover:shadow-lg transition transform hover:scale-102">
+                    <h3 class="text-lg font-bold text-amber-900 mb-4">⚙️ 시스템 & 데이터</h3>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="bg-stone-100 text-stone-700 px-3 py-1 rounded-full text-sm border border-stone-300">ERP/CRM</span>
+                        <span class="bg-stone-100 text-stone-700 px-3 py-1 rounded-full text-sm border border-stone-300">CMS</span>
+                        <span class="bg-stone-100 text-stone-700 px-3 py-1 rounded-full text-sm border border-stone-300">데이터 분석</span>
+                        <span class="bg-stone-100 text-stone-700 px-3 py-1 rounded-full text-sm border border-stone-300">GenAI</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 포트폴리오 섹션 -->
+    <section id="projects" class="py-20 px-4 sm:px-6 lg:px-8 bg-white">
+        <div class="max-w-6xl mx-auto">
+            <h2 class="text-4xl font-bold mb-12 text-center text-stone-900">
+                포트폴리오
+            </h2>
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- 프로젝트 1 - 폴라로이드 스타일 -->
+                <div class="group bg-white border border-stone-300 rounded-sm overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:-rotate-2 hover:-translate-y-4">
+                    <div class="aspect-video bg-gradient-to-br from-amber-100 to-orange-100 flex items-center justify-center text-6xl group-hover:scale-110 transition-transform duration-300">
+                        🏢
+                    </div>
+                    <div class="p-6 bg-white">
+                        <h3 class="text-xl font-bold text-stone-900 mb-3">전사 시스템 아키텍처 재설계</h3>
+                        <p class="text-stone-700 text-sm mb-4 leading-relaxed">
+                            보험사의 핵심 운영 전반을 통합하는 전사 ERP 시스템 구축. 레거시 시스템 디커플링으로 기술 부채를 해결하고 시스템 안정성 확보.
+                        </p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="text-xs bg-stone-100 text-stone-700 px-3 py-1 rounded border border-stone-300">ERP</span>
+                            <span class="text-xs bg-stone-100 text-stone-700 px-3 py-1 rounded border border-stone-300">데이터 마이그레이션</span>
+                        </div>
+                        <a href="#" class="inline-block text-amber-700 hover:text-amber-900 font-semibold text-sm transition">
+                            자세히 보기 →
+                        </a>
+                    </div>
+                </div>
+
+                <!-- 프로젝트 2 -->
+                <div class="group bg-white border border-stone-300 rounded-sm overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:rotate-2 hover:-translate-y-4">
+                    <div class="aspect-video bg-gradient-to-br from-orange-100 to-red-100 flex items-center justify-center text-6xl group-hover:scale-110 transition-transform duration-300">
+                        💳
+                    </div>
+                    <div class="p-6 bg-white">
+                        <h3 class="text-xl font-bold text-stone-900 mb-3">수수료 정산 시스템 구축</h3>
+                        <p class="text-stone-700 text-sm mb-4 leading-relaxed">
+                            월 100억 원 규모의 보험 수수료를 자동으로 정산하는 CMS 구축. 엑셀 기반 수작업을 완전 시스템화하여 정확성과 효율성 극대화.
+                        </p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="text-xs bg-stone-100 text-stone-700 px-3 py-1 rounded border border-stone-300">CMS</span>
+                            <span class="text-xs bg-stone-100 text-stone-700 px-3 py-1 rounded border border-stone-300">재무 시스템</span>
+                        </div>
+                        <a href="#" class="inline-block text-amber-700 hover:text-amber-900 font-semibold text-sm transition">
+                            자세히 보기 →
+                        </a>
+                    </div>
+                </div>
+
+                <!-- 프로젝트 3 -->
+                <div class="group bg-white border border-stone-300 rounded-sm overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:-rotate-1 hover:-translate-y-4">
+                    <div class="aspect-video bg-gradient-to-br from-yellow-100 to-amber-100 flex items-center justify-center text-6xl group-hover:scale-110 transition-transform duration-300">
+                        🤖
+                    </div>
+                    <div class="p-6 bg-white">
+                        <h3 class="text-xl font-bold text-stone-900 mb-3">GenAI 기반 자동화 파이프라인</h3>
+                        <p class="text-stone-700 text-sm mb-4 leading-relaxed">
+                            AI 보험 언더라이팅 플랫폼 및 내부 문의 자동 답변 시스템. 비정형 데이터를 AI 학습 스키마로 변환하여 비즈니스 로직을 자동화.
+                        </p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="text-xs bg-stone-100 text-stone-700 px-3 py-1 rounded border border-stone-300">GenAI</span>
+                            <span class="text-xs bg-stone-100 text-stone-700 px-3 py-1 rounded border border-stone-300">RAG</span>
+                        </div>
+                        <a href="#" class="inline-block text-amber-700 hover:text-amber-900 font-semibold text-sm transition">
+                            자세히 보기 →
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 연락처 섹션 -->
+    <section id="contact" class="py-20 px-4 sm:px-6 lg:px-8 bg-stone-50">
+        <div class="max-w-4xl mx-auto">
+            <h2 class="text-4xl font-bold mb-12 text-center text-stone-900">
+                연락처
+            </h2>
+            <div class="grid md:grid-cols-2 gap-8 mb-8">
+                <!-- 이메일 -->
+                <a href="mailto:min_jungwon@naver.com" class="group bg-white border border-stone-300 rounded-sm p-8 shadow-lg hover:shadow-xl transition transform hover:-rotate-1">
+                    <h3 class="text-2xl font-bold text-amber-900 mb-3 group-hover:text-amber-700 transition">✉️ 이메일</h3>
+                    <p class="text-lg text-stone-700 group-hover:text-stone-900 transition">
+                        min_jungwon@naver.com
+                    </p>
+                </a>
+
+                <!-- 전화 -->
+                <a href="tel:01033268889" class="group bg-white border border-stone-300 rounded-sm p-8 shadow-lg hover:shadow-xl transition transform hover:rotate-1">
+                    <h3 class="text-2xl font-bold text-amber-900 mb-3 group-hover:text-amber-700 transition">📱 전화</h3>
+                    <p class="text-lg text-stone-700 group-hover:text-stone-900 transition">
+                        010-3326-8889
+                    </p>
+                </a>
+            </div>
+
+            <!-- CTA -->
+            <div class="text-center bg-white border border-stone-300 rounded-sm shadow-lg p-8">
+                <p class="text-stone-700 mb-6 text-lg">
+                    새로운 프로젝트, 협업 기회, 또는 의견 공유를 항상 환영합니다.
+                </p>
+                <a href="mailto:min_jungwon@naver.com" class="inline-block px-8 py-3 bg-stone-800 text-white hover:bg-stone-700 rounded font-semibold transition transform hover:scale-105 shadow-lg">
+                    지금 연락하기
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- 푸터 -->
+    <footer class="py-16 px-4 sm:px-6 lg:px-8 border-t border-stone-300 bg-stone-100">
+        <div class="max-w-6xl mx-auto text-center text-stone-600">
+            <p>&copy; 2026 Min Jungwon. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
