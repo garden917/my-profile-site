@@ -1,292 +1,290 @@
-  <!DOCTYPE html>
-  <html lang="ko">
-  <head>
-      <meta charset="UTF-8">
-      <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <title>AICC 솔루션 제품화 기획 - 뤼튼 채용 과제</title>
-      <script src="https://cdn.tailwindcss.com"></script>
-      <style>
-          body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; }
-          .header {
-              background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
-              color: white;
-          }
-          .section-link {
-              @apply block p-6 rounded-lg border-2 border-gray-300 hover:border-blue-500 hover:shadow-lg transition
-  text-decoration-none;
-          }
-          .section-link:hover {
-              @apply bg-blue-50;
-          }
-          .section-title { @apply text-2xl font-bold mb-2; }
-          .section-desc { @apply text-gray-700 mb-3; }
-          .section-meta { @apply text-sm text-gray-500 flex items-center gap-2; }
-          table { @apply w-full border-collapse; }
-          th, td { @apply border border-gray-300 px-4 py-2 text-left; }
-          th { @apply bg-blue-100 font-bold; }
-          tr:nth-child(even) { @apply bg-gray-50; }
-      </style>
-  </head>
-  <body class="bg-gray-50 text-gray-800">
-      <!-- 헤더 -->
-      <div class="header">
-          <div class="max-w-6xl mx-auto px-8 py-12">
-              <h1 class="text-5xl font-bold mb-2">AICC 솔루션 제품화 기획</h1>
-              <p class="text-blue-100 text-lg mb-4">"Bring AI to Every Call" — 범용 멀티테넌트 SaaS 플랫폼 기획서</p>
-              <div class="flex gap-6 text-sm text-blue-100">
-                  <div>📋 뤼튼(Wrtn) AX Product Manager 과제</div>
-                  <div>📅 2026년 4월</div>
-                  <div>👤 작성자: 민정원</div>
-              </div>
-          </div>
-      </div>
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AICC 솔루션 제품화 기획 - 뤼튼 채용 과제</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; }
+        .header {
+            background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
+            color: white;
+        }
+        .section-link {
+            @apply block p-6 rounded-lg border-2 border-gray-300 hover:border-blue-500 hover:shadow-lg transition text-decoration-none;
+        }
+        .section-link:hover {
+            @apply bg-blue-50;
+        }
+        .section-title { @apply text-2xl font-bold mb-2; }
+        .section-desc { @apply text-gray-700 mb-3; }
+        .section-meta { @apply text-sm text-gray-500 flex items-center gap-2; }
+        table { @apply w-full border-collapse; }
+        th, td { @apply border border-gray-300 px-4 py-2 text-left; }
+        th { @apply bg-blue-100 font-bold; }
+        tr:nth-child(even) { @apply bg-gray-50; }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800">
+    <!-- 헤더 -->
+    <div class="header">
+        <div class="max-w-6xl mx-auto px-8 py-12">
+            <h1 class="text-5xl font-bold mb-2">AICC 솔루션 제품화 기획</h1>
+            <p class="text-blue-100 text-lg mb-4">"Bring AI to Every Call" — 범용 멀티테넌트 SaaS 플랫폼 기획서</p>
+            <div class="flex gap-6 text-sm text-blue-100">
+                <div>📋 뤼튼(Wrtn) AX Product Manager 과제</div>
+                <div>📅 2026년 4월</div>
+                <div>👤 작성자: 민정원</div>
+            </div>
+        </div>
+    </div>
 
-      <!-- 메인 콘텐츠 -->
-      <div class="max-w-6xl mx-auto px-8 py-12">
-          <!-- 과제 개요 -->
-          <div class="bg-white p-8 rounded-lg border-2 border-blue-300 mb-12">
-              <h2 class="text-3xl font-bold mb-4">📌 과제 개요</h2>
+    <!-- 메인 콘텐츠 -->
+    <div class="max-w-6xl mx-auto px-8 py-12">
+        <!-- 과제 개요 -->
+        <div class="bg-white p-8 rounded-lg border-2 border-blue-300 mb-12">
+            <h2 class="text-3xl font-bold mb-4">📌 과제 개요</h2>
 
-              <div class="grid grid-cols-2 gap-6 mb-6">
-                  <div>
-                      <h3 class="font-bold mb-2">🎯 목표</h3>
-                      <p class="text-gray-700">기존 구축형(SI) AICC 솔루션을 범용 멀티테넌트 SaaS 제품으로 전환하기 위한 완전한
-  기획</p>
-                  </div>
-                  <div>
-                      <h3 class="font-bold mb-2">🎁 기존 자산</h3>
-                      <ul class="text-gray-700 list-disc list-inside space-y-1">
-                          <li>보이스봇 코어 엔진</li>
-                          <li>Elasticsearch + Neo4j RAG</li>
-                          <li>React AdminPanel</li>
-                      </ul>
-                  </div>
-              </div>
+            <div class="grid grid-cols-2 gap-6 mb-6">
+                <div>
+                    <h3 class="font-bold mb-2">🎯 목표</h3>
+                    <p class="text-gray-700">기존 구축형(SI) AICC 솔루션을 범용 멀티테넌트 SaaS 제품으로 전환하기 위한 완전한 기획</p>
+                </div>
+                <div>
+                    <h3 class="font-bold mb-2">🎁 기존 자산</h3>
+                    <ul class="text-gray-700 list-disc list-inside space-y-1">
+                        <li>보이스봇 코어 엔진</li>
+                        <li>Elasticsearch + Neo4j RAG</li>
+                        <li>React AdminPanel</li>
+                    </ul>
+                </div>
+            </div>
 
-              <div class="grid grid-cols-2 gap-6">
-                  <div>
-                      <h3 class="font-bold mb-2">🌍 타겟 시장</h3>
-                      <ul class="text-gray-700 list-disc list-inside space-y-1">
-                          <li><strong>금융:</strong> 은행, 보험 (규제 민감)</li>
-                          <li><strong>이커머스:</strong> 온라인 쇼핑 (속도 중심)</li>
-                          <li><strong>전자:</strong> 고객지원 (기술 중심)</li>
-                      </ul>
-                  </div>
-                  <div>
-                      <h3 class="font-bold mb-2">⏱️  타임라인</h3>
-                      <ul class="text-gray-700 list-disc list-inside space-y-1">
-                          <li>Phase 0: M1~M2 (기반 정비)</li>
-                          <li>Phase 1: M3 (MVP 출시)</li>
-                          <li>Phase 2: M4~M6 (확장)</li>
-                          <li>Phase 3: M7~M10 (성숙화)</li>
-                      </ul>
-                  </div>
-              </div>
-          </div>
+            <div class="grid grid-cols-2 gap-6">
+                <div>
+                    <h3 class="font-bold mb-2">🌍 타겟 시장</h3>
+                    <ul class="text-gray-700 list-disc list-inside space-y-1">
+                        <li><strong>금융:</strong> 은행, 보험 (규제 민감)</li>
+                        <li><strong>이커머스:</strong> 온라인 쇼핑 (속도 중심)</li>
+                        <li><strong>전자:</strong> 고객지원 (기술 중심)</li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="font-bold mb-2">⏱️ 타임라인</h3>
+                    <ul class="text-gray-700 list-disc list-inside space-y-1">
+                        <li>Phase 0: M1~M2 (기반 정비)</li>
+                        <li>Phase 1: M3 (MVP 출시)</li>
+                        <li>Phase 2: M4~M6 (확장)</li>
+                        <li>Phase 3: M7~M10 (성숙화)</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
 
-          <!-- 산출물 목록 -->
-          <h2 class="text-3xl font-bold mb-8">📑 산출물 목록</h2>
+        <!-- 산출물 목록 -->
+        <h2 class="text-3xl font-bold mb-8">📑 산출물 목록</h2>
 
-          <div class="grid grid-cols-2 gap-6 mb-12">
-              <!-- 1. PRD -->
-              <a href="prd.html" class="section-link">
-                  <div class="section-title">1️⃣  제품 기획서 (PRD)</div>
-                  <p class="section-desc">
-                      제품 비전, 타겟 고객, 핵심 기능, 자산 활용 계획, 우선순위, KPI
-                  </p>
-                  <div class="section-meta">
-                      <span>📄 6개 섹션</span>
-                      <span>•</span>
-                      <span>읽기 시간: 15분</span>
-                  </div>
-              </a>
+        <div class="grid grid-cols-2 gap-6 mb-12">
+            <!-- 1. PRD -->
+            <a href="prd.html" class="section-link">
+                <div class="section-title">1️⃣ 제품 기획서 (PRD)</div>
+                <p class="section-desc">
+                    제품 비전, 타겟 고객, 핵심 기능, 자산 활용 계획, 우선순위, KPI
+                </p>
+                <div class="section-meta">
+                    <span>📄 6개 섹션</span>
+                    <span>•</span>
+                    <span>읽기 시간: 15분</span>
+                </div>
+            </a>
 
-              <!-- 2. Wireframes -->
-              <a href="wireframes.html" class="section-link">
-                  <div class="section-title">2️⃣  화면 설계 (Wireframes)</div>
-                  <p class="section-desc">
-                      보이스봇 관리 콘솔, Agent Assist 화면, 고객사 온보딩 위저드 (3개 화면)
-                  </p>
-                  <div class="section-meta">
-                      <span>🎨 3개 화면</span>
-                      <span>•</span>
-                      <span>읽기 시간: 10분</span>
-                  </div>
-              </a>
+            <!-- 2. Wireframes -->
+            <a href="wireframes.html" class="section-link">
+                <div class="section-title">2️⃣ 화면 설계 (Wireframes)</div>
+                <p class="section-desc">
+                    보이스봇 관리 콘솔, Agent Assist 화면, 고객사 온보딩 위저드 (3개 화면)
+                </p>
+                <div class="section-meta">
+                    <span>🎨 3개 화면</span>
+                    <span>•</span>
+                    <span>읽기 시간: 10분</span>
+                </div>
+            </a>
 
-              <!-- 3. Roadmap -->
-              <a href="roadmap.html" class="section-link">
-                  <div class="section-title">3️⃣  제품 로드맵</div>
-                  <p class="section-desc">
-                      4 Phase 배포 계획, 타임라인, 리소스, 의존성 및 리스크 관리
-                  </p>
-                  <div class="section-meta">
-                      <span>📊 10개월 계획</span>
-                      <span>•</span>
-                      <span>읽기 시간: 12분</span>
-                  </div>
-              </a>
+            <!-- 3. Roadmap -->
+            <a href="roadmap.html" class="section-link">
+                <div class="section-title">3️⃣ 제품 로드맵</div>
+                <p class="section-desc">
+                    4 Phase 배포 계획, 타임라인, 리소스, 의존성 및 리스크 관리
+                </p>
+                <div class="section-meta">
+                    <span>📊 10개월 계획</span>
+                    <span>•</span>
+                    <span>읽기 시간: 12분</span>
+                </div>
+            </a>
 
-              <!-- 4. Pricing -->
-              <a href="pricing.html" class="section-link">
-                  <div class="section-title">4️⃣  가격 전략</div>
-                  <p class="section-desc">
-                      구축형/SaaS형 가격 모델, 성과 기반 과금, 경쟁력 포지셔닝
-                  </p>
-                  <div class="section-meta">
-                      <span>💰 3가지 모델</span>
-                      <span>•</span>
-                      <span>읽기 시간: 10분</span>
-                  </div>
-              </a>
-          </div>
+            <!-- 4. Pricing -->
+            <a href="pricing.html" class="section-link">
+                <div class="section-title">4️⃣ 가격 전략</div>
+                <p class="section-desc">
+                    구축형/SaaS형 가격 모델, 성과 기반 과금, 경쟁력 포지셔닝
+                </p>
+                <div class="section-meta">
+                    <span>💰 3가지 모델</span>
+                    <span>•</span>
+                    <span>읽기 시간: 10분</span>
+                </div>
+            </a>
+        </div>
 
-          <!-- 빠른 참조 -->
-          <div class="bg-white p-8 rounded-lg border-2 border-gray-200 mb-12">
-              <h2 class="text-2xl font-bold mb-6">⚡ 빠른 참조</h2>
+        <!-- 빠른 참조 -->
+        <div class="bg-white p-8 rounded-lg border-2 border-gray-200 mb-12">
+            <h2 class="text-2xl font-bold mb-6">⚡ 빠른 참조</h2>
 
-              <div class="grid grid-cols-3 gap-6">
-                  <div class="bg-blue-50 p-4 rounded border-l-4 border-blue-600">
-                      <div class="font-bold text-blue-900 mb-2">🎯 핵심 KPI</div>
-                      <ul class="text-sm space-y-1">
-                          <li>자기서비스율: 60%+</li>
-                          <li>AHT: -23% 이상</li>
-                          <li>FCR: 70%+</li>
-                          <li>온보딩 TTF: 3일</li>
-                      </ul>
-                  </div>
+            <div class="grid grid-cols-3 gap-6">
+                <div class="bg-blue-50 p-4 rounded border-l-4 border-blue-600">
+                    <div class="font-bold text-blue-900 mb-2">🎯 핵심 KPI</div>
+                    <ul class="text-sm space-y-1">
+                        <li>자기서비스율: 60%+</li>
+                        <li>AHT: -23% 이상</li>
+                        <li>FCR: 70%+</li>
+                        <li>온보딩 TTF: 3일</li>
+                    </ul>
+                </div>
 
-                  <div class="bg-green-50 p-4 rounded border-l-4 border-green-600">
-                      <div class="font-bold text-green-900 mb-2">💰 기본 가격</div>
-                      <ul class="text-sm space-y-1">
-                          <li>Starter: 150만원/월</li>
-                          <li>Business: 500만원/월</li>
-                          <li>Enterprise: 협의</li>
-                          <li>성과기반: 기본료+건당</li>
-                      </ul>
-                  </div>
+                <div class="bg-green-50 p-4 rounded border-l-4 border-green-600">
+                    <div class="font-bold text-green-900 mb-2">💰 기본 가격</div>
+                    <ul class="text-sm space-y-1">
+                        <li>Starter: 150만원/월</li>
+                        <li>Business: 500만원/월</li>
+                        <li>Enterprise: 협의</li>
+                        <li>성과기반: 기본료+건당</li>
+                    </ul>
+                </div>
 
-                  <div class="bg-purple-50 p-4 rounded border-l-4 border-purple-600">
-                      <div class="font-bold text-purple-900 mb-2">📅 타임라인</div>
-                      <ul class="text-sm space-y-1">
-                          <li>Phase 0: 2개월</li>
-                          <li>Phase 1 MVP: 1개월</li>
-                          <li>Phase 2: 3개월</li>
-                          <li>Phase 3: 4개월</li>
-                      </ul>
-                  </div>
-              </div>
-          </div>
+                <div class="bg-purple-50 p-4 rounded border-l-4 border-purple-600">
+                    <div class="font-bold text-purple-900 mb-2">📅 타임라인</div>
+                    <ul class="text-sm space-y-1">
+                        <li>Phase 0: 2개월</li>
+                        <li>Phase 1 MVP: 1개월</li>
+                        <li>Phase 2: 3개월</li>
+                        <li>Phase 3: 4개월</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
 
-          <!-- 의사결정 매트릭스 -->
-          <div class="bg-white p-8 rounded-lg border-2 border-gray-200 mb-12">
-              <h2 class="text-2xl font-bold mb-6">🎲 주요 의사결정 사항</h2>
+        <!-- 의사결정 매트릭스 -->
+        <div class="bg-white p-8 rounded-lg border-2 border-gray-200 mb-12">
+            <h2 class="text-2xl font-bold mb-6">🎲 주요 의사결정 사항</h2>
 
-              <table>
-                  <tr>
-                      <th>결정 항목</th>
-                      <th>선택안</th>
-                      <th>추천 방향</th>
-                      <th>근거</th>
-                  </tr>
-                  <tr>
-                      <td><strong>제품 포지셔닝</strong></td>
-                      <td>SI 유지 vs SaaS 전환</td>
-                      <td><strong>SaaS 중심</strong></td>
-                      <td>시장 트렌드, NRR 우위, 스케일 가능</td>
-                  </tr>
-                  <tr>
-                      <td><strong>초기 타겟</strong></td>
-                      <td>금융 vs 이커머스</td>
-                      <td><strong>이커머스 우선</strong></td>
-                      <td>빠른 온보딩, 스파이크 니즈, 참조 고객 확보 용이</td>
-                  </tr>
-                  <tr>
-                      <td><strong>신규 개발 우선</strong></td>
-                      <td>Agent Assist vs 다른 기능</td>
-                      <td><strong>Agent Assist</strong></td>
-                      <td>상담원 생산성 핵심, 마진 개선 (프리미엄)</td>
-                  </tr>
-                  <tr>
-                      <td><strong>멀티테넌시</strong></td>
-                      <td>공유스키마 vs 전용DB</td>
-                      <td><strong>하이브리드</strong></td>
-                      <td>SMB는 공유, Enterprise는 전용 (비용-보안 균형)</td>
-                  </tr>
-                  <tr>
-                      <td><strong>가격 모델</strong></td>
-                      <td>정액제만 vs 성과기반</td>
-                      <td><strong>단계적 전환</strong></td>
-                      <td>초기는 정액, Phase 2부터 성과기반 병행 (고객 성숙도 고려)</td>
-                  </tr>
-              </table>
-          </div>
+            <table>
+                <tr>
+                    <th>결정 항목</th>
+                    <th>선택안</th>
+                    <th>추천 방향</th>
+                    <th>근거</th>
+                </tr>
+                <tr>
+                    <td><strong>제품 포지셔닝</strong></td>
+                    <td>SI 유지 vs SaaS 전환</td>
+                    <td><strong>SaaS 중심</strong></td>
+                    <td>시장 트렌드, NRR 우위, 스케일 가능</td>
+                </tr>
+                <tr>
+                    <td><strong>초기 타겟</strong></td>
+                    <td>금융 vs 이커머스</td>
+                    <td><strong>이커머스 우선</strong></td>
+                    <td>빠른 온보딩, 스파이크 니즈, 참조 고객 확보 용이</td>
+                </tr>
+                <tr>
+                    <td><strong>신규 개발 우선</strong></td>
+                    <td>Agent Assist vs 다른 기능</td>
+                    <td><strong>Agent Assist</strong></td>
+                    <td>상담원 생산성 핵심, 마진 개선 (프리미엄)</td>
+                </tr>
+                <tr>
+                    <td><strong>멀티테넌시</strong></td>
+                    <td>공유스키마 vs 전용DB</td>
+                    <td><strong>하이브리드</strong></td>
+                    <td>SMB는 공유, Enterprise는 전용 (비용-보안 균형)</td>
+                </tr>
+                <tr>
+                    <td><strong>가격 모델</strong></td>
+                    <td>정액제만 vs 성과기반</td>
+                    <td><strong>단계적 전환</strong></td>
+                    <td>초기는 정액, Phase 2부터 성과기반 병행 (고객 성숙도 고려)</td>
+                </tr>
+            </table>
+        </div>
 
-          <!-- 리스크 요약 -->
-          <div class="bg-yellow-50 p-8 rounded-lg border-2 border-yellow-300 mb-12">
-              <h2 class="text-2xl font-bold mb-6">⚠️  주요 리스크 & 대응</h2>
+        <!-- 리스크 요약 -->
+        <div class="bg-yellow-50 p-8 rounded-lg border-2 border-yellow-300 mb-12">
+            <h2 class="text-2xl font-bold mb-6">⚠️ 주요 리스크 & 대응</h2>
 
-              <div class="grid grid-cols-2 gap-6">
-                  <div>
-                      <h3 class="font-bold mb-3">🔴 High Priority</h3>
-                      <ul class="text-sm space-y-2">
-                          <li><strong>멀티테넌시 보안:</strong> 데이터 유출 리스크 → 외부 보안감사 필수</li>
-                          <li><strong>초기 고객 확보:</strong> 마케팅 리소스 부족 → 조기 투입</li>
-                          <li><strong>감정분석 정확도:</strong> 도메인별 차이 → 파일롯 기반 미세조정</li>
-                      </ul>
-                  </div>
-                  <div>
-                      <h3 class="font-bold mb-3">🟡 Medium Priority</h3>
-                      <ul class="text-sm space-y-2">
-                          <li><strong>CRM 연동 복잡도:</strong> 통합 변수 많음 → 기본 API만 MVP 포함</li>
-                          <li><strong>성과기반 과금 구현:</strong> 미터링 로직 복잡 → 전담팀 구성</li>
-                          <li><strong>리소스 확보:</strong> MLOps 인재 부족 → 채용 조기 시작</li>
-                      </ul>
-                  </div>
-              </div>
-          </div>
+            <div class="grid grid-cols-2 gap-6">
+                <div>
+                    <h3 class="font-bold mb-3">🔴 High Priority</h3>
+                    <ul class="text-sm space-y-2">
+                        <li><strong>멀티테넌시 보안:</strong> 데이터 유출 리스크 → 외부 보안감사 필수</li>
+                        <li><strong>초기 고객 확보:</strong> 마케팅 리소스 부족 → 조기 투입</li>
+                        <li><strong>감정분석 정확도:</strong> 도메인별 차이 → 파일롯 기반 미세조정</li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="font-bold mb-3">🟡 Medium Priority</h3>
+                    <ul class="text-sm space-y-2">
+                        <li><strong>CRM 연동 복잡도:</strong> 통합 변수 많음 → 기본 API만 MVP 포함</li>
+                        <li><strong>성과기반 과금 구현:</strong> 미터링 로직 복잡 → 전담팀 구성</li>
+                        <li><strong>리소스 확보:</strong> MLOps 인재 부족 → 채용 조기 시작</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
 
-          <!-- 문서 읽기 순서 추천 -->
-          <div class="bg-blue-50 p-8 rounded-lg border-2 border-blue-300">
-              <h2 class="text-2xl font-bold mb-4">📚 추천 읽기 순서</h2>
+        <!-- 문서 읽기 순서 추천 -->
+        <div class="bg-blue-50 p-8 rounded-lg border-2 border-blue-300">
+            <h2 class="text-2xl font-bold mb-4">📚 추천 읽기 순서</h2>
 
-              <div class="space-y-3 text-sm">
-                  <p class="flex items-start gap-3">
-                      <span class="font-bold text-blue-600 min-w-fit">1️⃣  5분</span>
-                      <span>이 페이지(목차) 스캔 - 전체 구조 파악</span>
-                  </p>
-                  <p class="flex items-start gap-3">
-                      <span class="font-bold text-blue-600 min-w-fit">2️⃣  15분</span>
-                      <span><strong>PRD</strong> - 제품 컨셉, 기능, KPI 정리 (핵심 문서)</span>
-                  </p>
-                  <p class="flex items-start gap-3">
-                      <span class="font-bold text-blue-600 min-w-fit">3️⃣  10분</span>
-                      <span><strong>Wireframes</strong> - 실제 화면 이미지로 구체화</span>
-                  </p>
-                  <p class="flex items-start gap-3">
-                      <span class="font-bold text-blue-600 min-w-fit">4️⃣  12분</span>
-                      <span><strong>Roadmap</strong> - 개발 계획, 리소스, 리스크 체크</span>
-                  </p>
-                  <p class="flex items-start gap-3">
-                      <span class="font-bold text-blue-600 min-w-fit">5️⃣  10분</span>
-                      <span><strong>Pricing</strong> - 수익 모델, 경쟁력 분석</span>
-                  </p>
-                  <p class="text-gray-500 mt-4">✅ <strong>총 시간:</strong> 약 50분 (정독 기준 1.5시간)</p>
-              </div>
-          </div>
+            <div class="space-y-3 text-sm">
+                <p class="flex items-start gap-3">
+                    <span class="font-bold text-blue-600 min-w-fit">1️⃣ 5분</span>
+                    <span>이 페이지(목차) 스캔 - 전체 구조 파악</span>
+                </p>
+                <p class="flex items-start gap-3">
+                    <span class="font-bold text-blue-600 min-w-fit">2️⃣ 15분</span>
+                    <span><strong>PRD</strong> - 제품 컨셉, 기능, KPI 정리 (핵심 문서)</span>
+                </p>
+                <p class="flex items-start gap-3">
+                    <span class="font-bold text-blue-600 min-w-fit">3️⃣ 10분</span>
+                    <span><strong>Wireframes</strong> - 실제 화면 이미지로 구체화</span>
+                </p>
+                <p class="flex items-start gap-3">
+                    <span class="font-bold text-blue-600 min-w-fit">4️⃣ 12분</span>
+                    <span><strong>Roadmap</strong> - 개발 계획, 리소스, 리스크 체크</span>
+                </p>
+                <p class="flex items-start gap-3">
+                    <span class="font-bold text-blue-600 min-w-fit">5️⃣ 10분</span>
+                    <span><strong>Pricing</strong> - 수익 모델, 경쟁력 분석</span>
+                </p>
+                <p class="text-gray-500 mt-4">✅ <strong>총 시간:</strong> 약 50분 (정독 기준 1.5시간)</p>
+            </div>
+        </div>
 
-          <!-- 하단 정보 -->
-          <hr class="my-12 border-gray-300">
-          <div class="text-center text-sm text-gray-600 py-6">
-              <p>
-                  뤼튼(Wrtn) AX Product Manager 채용 과제 |
-                  <strong>작성자:</strong> 민정원 |
-                  <strong>작성일:</strong> 2026년 4월 1일
-              </p>
-              <p class="mt-2 text-xs">
-                  이 문서의 모든 내용은 뤼튼 채용 목적으로만 사용되며, 외부 공유를 금합니다.
-              </p>
-          </div>
-      </div>
-  </body>
-  </html>
+        <!-- 하단 정보 -->
+        <hr class="my-12 border-gray-300">
+        <div class="text-center text-sm text-gray-600 py-6">
+            <p>
+                뤼튼(Wrtn) AX Product Manager 채용 과제 |
+                <strong>작성자:</strong> 민정원 |
+                <strong>작성일:</strong> 2026년 4월 1일
+            </p>
+            <p class="mt-2 text-xs">
+                이 문서의 모든 내용은 뤼튼 채용 목적으로만 사용되며, 외부 공유를 금합니다.
+            </p>
+        </div>
+    </div>
+</body>
+</html>
