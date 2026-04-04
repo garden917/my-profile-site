@@ -3,342 +3,942 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AICC 솔루션 제품화 기획 - PRD</title>
+    <title>PRD — AICC 솔루션 제품화 기획</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans', sans-serif; }
-        h1 { @apply text-4xl font-bold mb-6 text-gray-900; }
-        h2 { @apply text-2xl font-bold mt-8 mb-4 text-gray-800 border-b-2 border-blue-500 pb-2; }
-        h3 { @apply text-lg font-bold mt-6 mb-2 text-gray-700; }
-        p { @apply mb-3 text-gray-700 leading-relaxed; }
-        table { @apply w-full border-collapse mb-4; }
-        th, td { @apply border border-gray-300 px-4 py-2 text-left; }
-        th { @apply bg-blue-100 font-bold; }
-        tr:nth-child(even) { @apply bg-gray-50; }
-        ul { @apply list-disc list-inside mb-3; }
-        li { @apply mb-1; }
-        .card { @apply bg-blue-50 border-l-4 border-blue-500 p-4 mb-4 rounded; }
-        .highlight { @apply text-blue-700 font-semibold; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: #f8fafc;
+            color: #1f2937;
+        }
+
+        /* 상단 고정 네비 */
+        .top-nav { position: sticky; top: 0; z-index: 50; background: white; box-shadow: 0 1px 4px rgba(0,0,0,0.07); }
+        .nav-row-site { border-bottom: 1px solid #f1f5f9; padding: 0.5rem 0; }
+        .nav-row-page { background: #f8fafc; padding: 0.35rem 0; }
+        .nav-inner { max-width: 900px; margin: 0 auto; padding: 0 2rem; display: flex; align-items: center; gap: 0.25rem; flex-wrap: wrap; }
+        .nav-home { font-size: 0.78rem; font-weight: 600; color: #9ca3af; text-decoration: none; padding: 0.25rem 0.6rem; border-radius: 999px; }
+        .nav-home:hover { color: #6b7280; }
+        .nav-divider { color: #d1d5db; margin: 0 0.1rem; font-size: 0.8rem; }
+        .nav-doc { font-size: 0.8rem; font-weight: 600; color: #6b7280; text-decoration: none; padding: 0.3rem 0.75rem; border-radius: 999px; transition: all 0.15s; }
+        .nav-doc:hover { background: #eff6ff; color: #1e40af; }
+        .nav-doc.active { background: #1e40af; color: white; }
+        .nav-section { font-size: 0.74rem; font-weight: 500; color: #9ca3af; text-decoration: none; padding: 0.2rem 0.6rem; border-radius: 999px; transition: all 0.15s; }
+        .nav-section:hover { background: #f1f5f9; color: #374151; }
+
+        /* 섹션 */
+        .section { scroll-margin-top: 84px; }
+
+        /* 카드 기본 */
+        .card {
+            background: white;
+            border-radius: 0.875rem;
+            border: 1px solid #e5e7eb;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+            padding: 2rem;
+            margin-bottom: 1.25rem;
+        }
+
+        /* 섹션 레이블 */
+        .section-label {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: #1e40af;
+            background: #eff6ff;
+            padding: 0.3rem 0.85rem;
+            border-radius: 999px;
+            margin-bottom: 0.75rem;
+        }
+        .section-title {
+            font-size: 1.75rem;
+            font-weight: 800;
+            color: #0f172a;
+            margin-bottom: 0.4rem;
+            line-height: 1.3;
+        }
+        .section-desc {
+            font-size: 0.95rem;
+            color: #6b7280;
+            margin-bottom: 1.75rem;
+            line-height: 1.6;
+        }
+
+        /* 하이라이트 블록들 */
+        .block-blue {
+            background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
+            border-left: 5px solid #1e40af;
+            border-radius: 0.75rem;
+            padding: 1.5rem 1.75rem;
+            margin-bottom: 1rem;
+        }
+        .block-red {
+            background: linear-gradient(135deg, #fff5f5 0%, #fee2e2 100%);
+            border-left: 5px solid #dc2626;
+            border-radius: 0.75rem;
+            padding: 1.5rem 1.75rem;
+            margin-bottom: 1rem;
+        }
+        .block-green {
+            background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);
+            border-left: 5px solid #15803d;
+            border-radius: 0.75rem;
+            padding: 1.5rem 1.75rem;
+            margin-bottom: 1rem;
+        }
+        .block-purple {
+            background: linear-gradient(135deg, #faf5ff 0%, #f3e8ff 100%);
+            border-left: 5px solid #7c3aed;
+            border-radius: 0.75rem;
+            padding: 1.5rem 1.75rem;
+            margin-bottom: 1rem;
+        }
+
+        /* KPI 카드 */
+        .kpi-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1rem;
+            margin-bottom: 1.25rem;
+        }
+        .kpi-card {
+            background: white;
+            border: 1.5px solid #e5e7eb;
+            border-radius: 0.75rem;
+            padding: 1.25rem 1rem;
+            text-align: center;
+            transition: all 0.2s;
+        }
+        .kpi-card:hover {
+            border-color: #1e40af;
+            box-shadow: 0 6px 16px rgba(30,64,175,0.12);
+            transform: translateY(-3px);
+        }
+        .kpi-value {
+            font-size: 2rem;
+            font-weight: 800;
+            color: #1e40af;
+            line-height: 1;
+            margin-bottom: 0.4rem;
+        }
+        .kpi-label {
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: #374151;
+            margin-bottom: 0.3rem;
+        }
+        .kpi-sub {
+            font-size: 0.75rem;
+            color: #9ca3af;
+            line-height: 1.4;
+        }
+
+        /* 테이블 */
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.88rem;
+        }
+        .data-table th {
+            background: #1e3a8a;
+            color: white;
+            font-weight: 600;
+            padding: 10px 14px;
+            text-align: left;
+            font-size: 0.78rem;
+            letter-spacing: 0.03em;
+        }
+        .data-table td {
+            padding: 12px 14px;
+            border-bottom: 1px solid #f1f5f9;
+            vertical-align: top;
+            line-height: 1.6;
+            color: #374151;
+        }
+        .data-table tbody tr:last-child td { border-bottom: none; }
+        .data-table tbody tr:hover td { background: #f8faff; }
+        .data-table tbody tr.highlight td { background: #f5f3ff; }
+
+        /* Phase 카드 */
+        .phase-card {
+            border-radius: 0.875rem;
+            padding: 1.5rem 1.75rem;
+            margin-bottom: 1rem;
+            border: 1.5px solid;
+        }
+        .phase-0 { background: #f8fafc; border-color: #cbd5e1; }
+        .phase-1 { background: #eff6ff; border-color: #93c5fd; }
+        .phase-2 { background: #faf5ff; border-color: #c4b5fd; }
+        .phase-3 { background: #fff7ed; border-color: #fdba74; }
+
+        .phase-badge-new {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            font-size: 0.78rem;
+            font-weight: 700;
+            padding: 0.3rem 0.9rem;
+            border-radius: 999px;
+            margin-bottom: 1rem;
+        }
+        .badge-0 { background: #e2e8f0; color: #475569; }
+        .badge-1 { background: #dbeafe; color: #1e40af; }
+        .badge-2 { background: #ede9fe; color: #6d28d9; }
+        .badge-3 { background: #ffedd5; color: #c2410c; }
+
+        /* 체크리스트 */
+        .checklist { list-style: none; margin-top: 0.75rem; }
+        .checklist li {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.6rem;
+            padding: 0.35rem 0;
+            font-size: 0.9rem;
+            color: #374151;
+            line-height: 1.5;
+        }
+        .checklist li::before {
+            content: "✓";
+            font-weight: 800;
+            color: #1e40af;
+            flex-shrink: 0;
+            margin-top: 0.05rem;
+        }
+
+        /* 페르소나 카드 */
+        .persona-card {
+            background: white;
+            border-radius: 0.875rem;
+            border: 1.5px solid #e5e7eb;
+            overflow: hidden;
+            transition: box-shadow 0.2s;
+        }
+        .persona-card:hover {
+            box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+        }
+        .persona-header {
+            padding: 1.25rem 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        .persona-avatar {
+            width: 3rem;
+            height: 3rem;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.4rem;
+            flex-shrink: 0;
+        }
+        .persona-body {
+            padding: 0 1.5rem 1.5rem;
+        }
+        .persona-section-label {
+            font-size: 0.72rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            margin-bottom: 0.35rem;
+            margin-top: 1rem;
+        }
+        .persona-text {
+            font-size: 0.88rem;
+            color: #4b5563;
+            line-height: 1.65;
+        }
+        .pain-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.5rem;
+            font-size: 0.88rem;
+            color: #4b5563;
+            padding: 0.25rem 0;
+            line-height: 1.5;
+        }
+        .pain-item::before {
+            content: "→";
+            color: #dc2626;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+        .value-box {
+            border-radius: 0.5rem;
+            padding: 0.75rem 1rem;
+            margin-top: 1rem;
+            font-size: 0.88rem;
+            line-height: 1.6;
+        }
+
+        /* 하단 네비 */
+        .bottom-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 3rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid #e5e7eb;
+        }
+        .nav-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            font-size: 0.88rem;
+            font-weight: 600;
+            color: #1e40af;
+            text-decoration: none;
+            padding: 0.6rem 1.2rem;
+            border-radius: 0.5rem;
+            border: 1.5px solid #bfdbfe;
+            transition: all 0.15s;
+        }
+        .nav-btn:hover {
+            background: #eff6ff;
+            border-color: #1e40af;
+        }
     </style>
 </head>
-<body class="bg-white text-gray-800">
-    <div class="max-w-4xl mx-auto p-8">
-        <h1>AICC 솔루션 제품화 기획서 (PRD)</h1>
-        <p class="text-sm text-gray-500 mb-8">작성일: 2026년 4월 | 대상: 뤼튼(Wrtn) AX Product Manager 채용 과제</p>
+<body>
 
-        <!-- 1. 제품 비전 -->
-        <h2>1. 제품 비전 및 포지셔닝</h2>
-        <div class="card">
-            <p class="font-bold text-lg mb-2">🎯 Product Vision</p>
-            <p class="text-blue-900"><span class="highlight">"Bring AI to Every Call"</span> — 금융, 보험, 이커머스의 모든 고객 통화를 AI가 처리하거나 보조하는 범용 플랫폼</p>
+    <!-- 상단 고정 네비게이션 -->
+    <nav class="top-nav">
+        <div class="nav-row-site">
+            <div class="nav-inner">
+                <a href="index.html" class="nav-home">← 목차</a>
+                <span class="nav-divider">|</span>
+                <a href="prd.html" class="nav-doc active">PRD</a>
+                <a href="wireframes.html" class="nav-doc">화면설계</a>
+                <a href="roadmap.html" class="nav-doc">로드맵</a>
+                <a href="pricing.html" class="nav-doc">가격전략</a>
+            </div>
         </div>
-
-        <h3>포지셔닝</h3>
-        <p><strong>기존 모델:</strong> SI/구축형 (단일 고객사, 맞춤형 엔진, 장기 프로젝트)</p>
-        <p><strong>신규 모델:</strong> 범용 멀티테넌트 SaaS (다수 고객, 표준화된 기능, 빠른 온보딩)</p>
-        <p><strong>핵심 가치:</strong> "규제 준수 + 자동화" — 금융 규정은 지키면서, 이커머스 속도감은 살린다</p>
-
-        <!-- 2. 타겟 고객 -->
-        <h2>2. 타겟 고객 및 페르소나</h2>
-
-        <h3>시장 세분화</h3>
-        <table>
-            <tr>
-                <th>산업</th>
-                <th>주요 통증</th>
-                <th>타겟 부서장</th>
-                <th>주요 KPI</th>
-            </tr>
-            <tr>
-                <td><strong>금융 (은행, 보험)</strong></td>
-                <td>규제 준수, AHT 개선, 상담원 이탈</td>
-                <td>콜센터 운영 부장</td>
-                <td>AHT ↓, 규제 위반 0건</td>
-            </tr>
-            <tr>
-                <td><strong>이커머스</strong></td>
-                <td>시즌 스파이크, API 연동 복잡도, CS 비용</td>
-                <td>CX팀 리더 / CS부장</td>
-                <td>자기서비스율 ↑, 시즌 대응력</td>
-            </tr>
-            <tr>
-                <td><strong>전자제품</strong></td>
-                <td>기술 지원 고도화, 다국어 지원</td>
-                <td>고객 지원 임원</td>
-                <td>문제 해결율 ↑</td>
-            </tr>
-        </table>
-
-        <h3>주요 페르소나</h3>
-        <p><strong>1. 규제 민감형 (금융) — 이순신 부장</strong></p>
-        <ul>
-            <li>콜센터 운영 부장, 40대 남성, 25년 통신사·은행 경력</li>
-            <li>관심사: 규정 준수, 감시 통화 합법성, 상담원 교육</li>
-            <li>의사결정: IT팀과 협의 필수, 보안/규제 체크리스트 중시</li>
-            <li>기대값: 3개월 내 도입, 리스크 제로</li>
-        </p>
-
-        <p><strong>2. 속도형 (이커머스) — 김민지 리더</strong></p>
-        <ul>
-            <li>CX팀 리더, 30대 여성, 스타트업 경력, PM 마인드</li>
-            <li>관심사: 스파이크 대응, 자기서비스율, 시스템 유연성</li>
-            <li>의사결정: ROI 우선, 빠른 도입, 반복 개선 용인</li>
-            <li>기대값: 1개월 내 POC, 6개월 내 본격 운영</li>
-        </p>
-
-        <p><strong>3. IT 의사결정권자 — 박진호 임원</strong></p>
-        <ul>
-            <li>IT/디지털전환 임원, 45+ 세대, 인프라 중심</li>
-            <li>관심사: 멀티테넌시 보안, SLA, 운영 비용</li>
-            <li>의사결정: 벤치마크, 장기 로드맵, 계약 조건</li>
-            <li>기대값: 운영 자동화, 기술 부채 해소</li>
-        </p>
-
-        <!-- 3. 핵심 기능 -->
-        <h2>3. 핵심 기능 정의 (기술 컴포넌트)</h2>
-
-        <div class="card">
-            <p class="font-bold text-lg mb-3">📌 중요: 제품 A/B/C는 "기술 컴포넌트"입니다</p>
-            <p class="text-sm text-gray-700 mb-3">다음 장의 가격 모델 (Starter/Business/Enterprise)은 이 기술 컴포넌트들을 조합한 "비즈니스 패키징"입니다.</p>
-            <ul class="text-sm space-y-2">
-                <li><strong>Starter 티어:</strong> A 보이스봇만 포함</li>
-                <li><strong>Business 티어:</strong> A 보이스봇 + B Agent Assist (기본) + C 온보딩</li>
-                <li><strong>Enterprise 티어:</strong> A + B (고급) + C + 감정분석, CRM연동, 맞춤개발 등 전체 기능</li>
-            </ul>
+        <div class="nav-row-page">
+            <div class="nav-inner">
+                <a href="#executive" class="nav-section">01 Executive Summary</a>
+                <a href="#market" class="nav-section">02 시장분석</a>
+                <a href="#solution" class="nav-section">03 솔루션</a>
+                <a href="#impact" class="nav-section">04 비즈니스 임팩트</a>
+                <a href="#implementation" class="nav-section">05 구현전략</a>
+            </div>
         </div>
+    </nav>
 
-        <h3>제품 A: AI 보이스봇 (자동 응대)</h3>
-        <table>
-            <tr>
-                <th>기능</th>
-                <th>설명</th>
-                <th>기술 자산</th>
-            </tr>
-            <tr>
-                <td>실시간 음성 처리</td>
-                <td>고객 음성 → STT (200ms) → LLM (400ms) → TTS (300ms) + 네트워크/오버헤드 (600ms) = 약 1.5~1.8초 총 지연</td>
-                <td>보이스봇 코어 엔진</td>
-            </tr>
-            <tr>
-                <td>대화형 지능</td>
-                <td>도메인 특화 LLM, 다중 턴 문맥 유지, 자연스러운 음성 톤</td>
-                <td>Fine-tuned LLM</td>
-            </tr>
-            <tr>
-                <td>Closed-loop 태스크 수행</td>
-                <td>고객 의도 파악 → 사내 API 호출 → 실행 결과 전달 (예: 주소변경, 환불 신청)</td>
-                <td>Agentic AI + Tool Invocation</td>
-            </tr>
-            <tr>
-                <td>지식 기반 검색</td>
-                <td>고객 문의 → 하이브리드 RAG (Elasticsearch 키워드 + Neo4j 그래프) → 정확한 정책 인용</td>
-                <td>Elasticsearch + Neo4j</td>
-            </tr>
-            <tr>
-                <td>감정 기반 에스컬레이션</td>
-                <td>실시간 감정 분석 → 부정 임계값 초과 시 자동 상담원 전환</td>
-                <td>감정 분석 모델</td>
-            </tr>
-        </table>
-
-        <h3>제품 B: Agent Assist (상담원 보조)</h3>
-        <table>
-            <tr>
-                <th>기능</th>
-                <th>설명</th>
-                <th>효과</th>
-            </tr>
-            <tr>
-                <td>실시간 트랜스크립트</td>
-                <td>고객-상담원 통화 자동 녹취 및 텍스트 변환</td>
-                <td>상담원이 메모 중 놓치는 내용 없음</td>
-            </tr>
-            <tr>
-                <td>감정 분석 UI <span style="color: #dc2626; font-weight: bold;">(Phase 2에서 추가)</span></td>
-                <td>고객 감정 점수 (-1.0~1.0) 실시간 표시, 부정 전환 시 경고</td>
-                <td>상담원의 대응 톤 즉시 조정 가능</td>
-            </tr>
-            <tr>
-                <td>동적 배틀카드</td>
-                <td>고객 문의 내용 자동 분석 → 관련 정책/지식 추천</td>
-                <td>AHT 23% 단축, 신입 온보딩 기간 1/2 감소</td>
-            </tr>
-            <tr>
-                <td>통화 요약</td>
-                <td>통화 종료 후 2초 내 자동 요약 (주제, 해결 여부, 후속조치)</td>
-                <td>ACW(After Call Work) 제거, 실시간 CRM 업데이트</td>
-            </tr>
-            <tr>
-                <td>고객 정보 패널</td>
-                <td>호출자 신원, 계정 이력, 진행 중 문제, 구매 정보 한눈에</td>
-                <td>개인화된 상담 가능, 교차판매 기회 증가</td>
-            </tr>
-        </table>
-
-        <h3>제품 C: 고객사 온보딩 (셀프 서비스)</h3>
-        <ul>
-            <li>회사 정보 입력 (산업, 도메인, 월 통화량)</li>
-            <li>봇 페르소나 정의 (이름, 인사말, 톤, 언어)</li>
-            <li>지식 업로드 (PDF/URL, 자동 임베딩)</li>
-            <li>샘플 통화로 테스트 (시뮬레이션)</li>
-            <li>→ 3~5일 내 실제 운영 시작</li>
-        </ul>
-
-        <!-- 4. 기존 자산 활용 -->
-        <h2>4. 기존 자산 활용 계획 및 신규 개발 범위</h2>
-        <table>
-            <tr>
-                <th>보유 자산</th>
-                <th>현 상태</th>
-                <th>SaaS 전환</th>
-                <th>신규 개발</th>
-            </tr>
-            <tr>
-                <td>보이스봇 코어 엔진</td>
-                <td>구축형 프로젝트에서 검증됨</td>
-                <td>멀티테넌시 격리 추가</td>
-                <td>테넌트 컨텍스트 관리</td>
-            </tr>
-            <tr>
-                <td>Elasticsearch + Neo4j RAG</td>
-                <td>단일 고객사 벡터DB/그래프DB</td>
-                <td>테넌트별 인덱스/DB 격리</td>
-                <td>동적 인덱스 생성 API</td>
-            </tr>
-            <tr>
-                <td>프롬프트 관리 패널</td>
-                <td>내부 개발팀용 테스트 도구</td>
-                <td>LLMOps 대시보드로 승격</td>
-                <td>고객 접근 권한, UI 개선</td>
-            </tr>
-            <tr>
-                <td>React AdminPanel</td>
-                <td>내부 구축 프로젝트용</td>
-                <td>제품 수준 콘솔로 개선</td>
-                <td>다중 고객사 관리, 계정 시스템</td>
-            </tr>
-            <tr>
-                <td>고객용 채팅/음성 인터페이스</td>
-                <td>웹/모바일 양용 가능</td>
-                <td>그대로 재사용</td>
-                <td>브랜딩 커스터마이징</td>
-            </tr>
-            <tr>
-                <td>Agent Assist 화면</td>
-                <td><span class="text-red-500">없음 (신규)</span></td>
-                <td>—</td>
-                <td><strong>완전 신규 개발 필수</strong></td>
-            </tr>
-            <tr>
-                <td>온보딩 플로우</td>
-                <td><span class="text-red-500">없음 (신규)</span></td>
-                <td>—</td>
-                <td><strong>완전 신규 개발 필수</strong></td>
-            </tr>
-            <tr>
-                <td>멀티테넌시 보안</td>
-                <td>개별 프로젝트 수준</td>
-                <td>—</td>
-                <td><strong>아키텍처 레벨 필수</strong> (DLS, JWT 검증)</td>
-            </tr>
-        </table>
-
-        <!-- 5. 기능 우선순위 -->
-        <h2>5. 기능 우선순위 (MVP vs Phase 2 vs Future)</h2>
-
-        <h3>📍 MVP (0→1 달성, M1~M3, 3개월)</h3>
-        <p class="font-semibold text-blue-600">목표: 범용 SaaS 플랫폼의 기본 형태 완성 + 첫 고객사 온보딩</p>
-        <ul>
-            <li>멀티테넌시 데이터 격리 (Elasticsearch DLS, Neo4j 별도 DB, JWT 인증)</li>
-            <li>보이스봇 코어 SaaS 래핑 (호출 방식 표준화, 과금 미터링 기초)</li>
-            <li>Agent Assist 기본 기능 (트랜스크립트, 지식 추천)</li>
-            <li>고객사 온보딩 위저드 (4단계, 샘플 통화 시뮬레이션)</li>
-            <li>고객 관리 콘솔 (기본 대시보드, 봇 설정, 문서 업로드)</li>
-        </ul>
-
-        <h3>📍 Phase 2 (확장, M4~M6, 3개월)</h3>
-        <p class="font-semibold text-blue-600">목표: 고급 기능 + 고객 만족도 향상</p>
-        <ul>
-            <li>감정 분석 + 에스컬레이션 자동화</li>
-            <li>통화 자동 요약 + CRM 연동 (Salesforce, HubSpot 기본 API)</li>
-            <li>아웃바운드 캠페인 기능 (프로모션/설문 전화)</li>
-            <li>LLMOps 대시보드 (프롬프트 A/B 테스트, 응답 품질 추적)</li>
-            <li>고급 권한 관리 (팀 기반 RBAC)</li>
-        </ul>
-
-        <h3>📍 Future (성숙화, M7+)</h3>
-        <p class="font-semibold text-blue-600">목표: 경쟁 우위 확보 + 성과 기반 과금</p>
-        <ul>
-            <li>도메인별 특화 모델 (금융 규정, 이커머스 물류, 보험 청구)</li>
-            <li>성과 기반 과금 자동 미터링 (Resolved Call 추적)</li>
-            <li>마켓플레이스 (CRM 플러그인, 업체별 API 확장)</li>
-            <li>AI 모니터링 (편향 감지, 규정 위반 알림)</li>
-        </ul>
-
-        <!-- 6. KPI -->
-        <h2>6. 성공 지표 (KPI)</h2>
-
-        <h3>비즈니스 메트릭</h3>
-        <table>
-            <tr>
-                <th>지표</th>
-                <th>목표</th>
-                <th>측정 방법</th>
-                <th>기대 효과</th>
-            </tr>
-            <tr>
-                <td>자기서비스 해결률 (SSR)</td>
-                <td>60% 이상</td>
-                <td>에스컬레이션 없이 완결된 통화 / 전체 통화</td>
-                <td>인력 30% 감소 (연 3억 절감)</td>
-            </tr>
-            <tr>
-                <td>평균 처리 시간 (AHT)</td>
-                <td>23% 이상 단축</td>
-                <td>통화 시작~종료 + ACW 평균</td>
-                <td>일일 처리량 30% 증가</td>
-            </tr>
-            <tr>
-                <td>첫 통화 해결률 (FCR)</td>
-                <td>70% 이상</td>
-                <td>재접촉 없이 종결된 비율</td>
-                <td>고객 만족도 +15%</td>
-            </tr>
-            <tr>
-                <td>온보딩 TTF</td>
-                <td>3일 이내</td>
-                <td>가입~첫 실제 통화까지 소요일</td>
-                <td>판매 주기 단축, 고객 만족</td>
-            </tr>
-            <tr>
-                <td>콜 오류율</td>
-                <td>1% 이하</td>
-                <td>오류 통화 / 전체 통화</td>
-                <td>규제 준수 (금융) 달성</td>
-            </tr>
-        </table>
-
-        <h3>제품 메트릭</h3>
-        <ul>
-            <li><strong>DAU/WAU:</strong> 고객사당 평균 일일/주간 활성 상담원 수 추적</li>
-            <li><strong>기능 채택률:</strong> Agent Assist, 감정분석 등 고급 기능 사용 비율</li>
-            <li><strong>API 성공률:</strong> Closed-loop 태스크 성공 비율 (주소변경, 환불 등)</li>
-            <li><strong>평균 세션 길이:</strong> 통화당 토큰 사용량 (비용 최적화 지표)</li>
-        </ul>
-
-        <h3>조직 메트릭</h3>
-        <ul>
-            <li><strong>NRR(Net Revenue Retention):</strong> 기존 고객의 갱신 + 추가 구매율 (SaaS 건전성)</li>
-            <li><strong>CSAT/NPS:</strong> 고객 만족도 (목표: CSAT 4.5/5, NPS 50+)</li>
-            <li><strong>고객 이탈률:</strong> 월간 churning rate (목표: 2% 이하)</li>
-        </ul>
-
-        <!-- 하단 네비게이션 -->
-        <hr class="my-12 border-gray-300">
-        <div class="flex justify-between text-sm text-gray-600">
-            <a href="index.html" class="text-blue-600 hover:underline">← 목차로 돌아가기</a>
-            <a href="wireframes.html" class="text-blue-600 hover:underline">다음: 화면 설계 →</a>
+    <!-- 히어로 헤더 -->
+    <div style="background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 60%, #3b82f6 100%); color: white; padding: 3.5rem 0 3rem;">
+        <div style="max-width: 900px; margin: 0 auto; padding: 0 2rem;">
+            <div style="font-size: 0.8rem; font-weight: 700; color: #93c5fd; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 0.75rem;">
+                제품 기획서 (PRD) · 산출물 1/4
+            </div>
+            <h1 style="font-size: 2.75rem; font-weight: 800; line-height: 1.2; margin-bottom: 0.75rem;">AICC 솔루션 제품화 기획</h1>
+            <p style="font-size: 1.15rem; color: #bfdbfe; margin-bottom: 2rem; line-height: 1.6;">구축형(SI) AI 음성봇 → 범용 멀티테넌트 SaaS 플랫폼으로의 전환 전략과 제품 정의</p>
+            <div style="display: flex; gap: 2rem; font-size: 0.85rem; color: #93c5fd;">
+                <span>📄 5개 섹션</span>
+                <span>·</span>
+                <span>⏱ 읽기 시간 약 15분</span>
+                <span>·</span>
+                <span>👤 민정원</span>
+            </div>
         </div>
     </div>
+
+    <!-- 메인 콘텐츠 -->
+    <div style="max-width: 900px; margin: 0 auto; padding: 2.5rem 2rem 4rem;">
+
+        <!-- ① Executive Summary -->
+        <div class="section" id="executive" style="margin-bottom: 3rem;">
+            <div class="section-label">01 Executive Summary</div>
+            <h2 class="section-title">"Bring AI to Every Call"</h2>
+            <p class="section-desc">이 제품이 해결하는 문제, 우리가 선택한 방향, 그리고 왜 지금인가</p>
+
+            <div class="block-blue" style="margin-bottom: 1.25rem;">
+                <div style="font-size: 1.05rem; font-weight: 700; color: #1e40af; margin-bottom: 0.75rem;">제품 정의</div>
+                <p style="font-size: 1rem; color: #1e3a8a; line-height: 1.8;">
+                    금융·보험·이커머스 콜센터의 인바운드·아웃바운드 통화를 AI가 자동 처리하거나 상담원을 실시간으로 보조하는 <strong>범용 멀티테넌트 SaaS 플랫폼</strong>.
+                    고객사는 3일 이내 셀프 온보딩으로 즉시 사용 가능하며, 자기서비스율 60%+, AHT -23%, 통화당 비용 -40%의 효과를 목표로 한다.
+                </p>
+            </div>
+
+            <div class="card" style="margin-bottom: 1.25rem;">
+                <div style="font-size: 1rem; font-weight: 700; color: #0f172a; margin-bottom: 1rem;">현재 상황과 전환의 논리</div>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                    <div class="block-red" style="margin: 0;">
+                        <div style="font-size: 0.82rem; font-weight: 700; color: #dc2626; margin-bottom: 0.6rem; text-transform: uppercase; letter-spacing: 0.05em;">SI 모델의 한계</div>
+                        <ul class="checklist">
+                            <li style="color: #7f1d1d;">고객사별 커스터마이징으로 운영 비용 누적</li>
+                            <li style="color: #7f1d1d;">프로젝트 종료 후 수익 단절 (일회성 구조)</li>
+                            <li style="color: #7f1d1d;">온보딩에 3~6개월 소요, 빠른 확장 불가</li>
+                            <li style="color: #7f1d1d;">고객 수 증가가 오히려 비용 증가로 이어짐</li>
+                        </ul>
+                    </div>
+                    <div class="block-green" style="margin: 0;">
+                        <div style="font-size: 0.82rem; font-weight: 700; color: #15803d; margin-bottom: 0.6rem; text-transform: uppercase; letter-spacing: 0.05em;">SaaS 전환의 이점</div>
+                        <ul class="checklist">
+                            <li style="color: #14532d;">MRR 기반 예측 가능한 수익 구조</li>
+                            <li style="color: #14532d;">고객 수 증가 → 단위 비용 감소 (공유 인프라)</li>
+                            <li style="color: #14532d;">셀프 온보딩으로 TTF 3일 달성</li>
+                            <li style="color: #14532d;">NRR 갱신·업셀을 통한 지속 성장 가능</li>
+                        </ul>
+                    </div>
+                </div>
+                <div style="margin-top: 1.25rem; background: #f8faff; border-radius: 0.6rem; padding: 1rem 1.25rem; border: 1px solid #dbeafe;">
+                    <p style="font-size: 0.9rem; color: #374151; line-height: 1.7;">
+                        <strong style="color: #1e40af;">핵심 자산:</strong> 이미 금융·보험사 납품을 통해 검증된 보이스봇 코어 엔진, Elasticsearch + Neo4j RAG 인프라, React AdminPanel이 존재한다.
+                        이 기획은 0→1이 아닌 <strong>기존 자산의 제품화(productization)</strong>로, 신규 개발 범위를 최소화하면서 SaaS 전환이 가능하다.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- ② 시장 분석 -->
+        <div class="section" id="market" style="margin-bottom: 3rem;">
+            <div class="section-label">02 시장 분석</div>
+            <h2 class="section-title">왜 지금인가?</h2>
+            <p class="section-desc">시장의 구조적 문제와 우리가 진입할 수 있는 이유</p>
+
+            <!-- 시장 현황 -->
+            <div class="card">
+                <div style="font-size: 1rem; font-weight: 700; color: #0f172a; margin-bottom: 1rem;">고객사들이 공통적으로 겪는 문제</div>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem;">
+                    <div style="background: #fef9f9; border: 1px solid #fecaca; border-radius: 0.6rem; padding: 1rem;">
+                        <div style="font-size: 0.82rem; font-weight: 700; color: #dc2626; margin-bottom: 0.5rem;">비용 구조</div>
+                        <p style="font-size: 0.88rem; color: #4b5563; line-height: 1.6;">상담원 1명/월 200만원 이상, 연간 이탈률 30%+로 채용·교육 비용 반복 발생. 스파이크 시즌엔 임시 인력 수급까지 겹쳐 비용이 연간 수억 단위로 증가한다.</p>
+                    </div>
+                    <div style="background: #fef9f9; border: 1px solid #fecaca; border-radius: 0.6rem; padding: 1rem;">
+                        <div style="font-size: 0.82rem; font-weight: 700; color: #dc2626; margin-bottom: 0.5rem;">품질·합규 리스크</div>
+                        <p style="font-size: 0.88rem; color: #4b5563; line-height: 1.6;">통화 모니터링·합규성 검수가 수동 프로세스에 의존하고 있어 음성·개인정보 규제 강화 시 즉각 대응이 어렵다. 사후 적발 시 법적 리스크로 이어진다.</p>
+                    </div>
+                    <div style="background: #fef9f9; border: 1px solid #fecaca; border-radius: 0.6rem; padding: 1rem;">
+                        <div style="font-size: 0.82rem; font-weight: 700; color: #dc2626; margin-bottom: 0.5rem;">기존 솔루션의 한계</div>
+                        <p style="font-size: 0.88rem; color: #4b5563; line-height: 1.6;">Genesys·Vonage 등 글로벌 솔루션은 가격이 agent당 $75~150/월 수준이고 한국어 특화가 부족하다. 국내 SI 업체는 도입에 6개월+가 걸린다.</p>
+                    </div>
+                    <div style="background: #fef9f9; border: 1px solid #fecaca; border-radius: 0.6rem; padding: 1rem;">
+                        <div style="font-size: 0.82rem; font-weight: 700; color: #dc2626; margin-bottom: 0.5rem;">타이밍 압박</div>
+                        <p style="font-size: 0.88rem; color: #4b5563; line-height: 1.6;">LLM 발전으로 AI 음성 응대가 상용 수준에 도달했고, 경쟁사들이 빠르게 진입 중이다. 지금이 초기 레퍼런스 확보의 마지막 적기다.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAM/SAM/SOM -->
+            <div class="card">
+                <div style="font-size: 1rem; font-weight: 700; color: #0f172a; margin-bottom: 0.4rem;">시장 규모 — TAM / SAM / SOM</div>
+                <p style="font-size: 0.88rem; color: #6b7280; margin-bottom: 1.25rem; line-height: 1.6;">국내 컨택센터 산업 통계(고용부 2023)와 경쟁사 가격 데이터를 기반으로 역산한 추정치다. TAM은 AI 솔루션으로 대체·효율화 가능한 인건비 총량 기준이며, 실제 시장 침투는 SOM 범위에서 시작한다.</p>
+
+                <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 0; border: 1.5px solid #e5e7eb; border-radius: 0.75rem; overflow: hidden; margin-bottom: 1.25rem;">
+                    <!-- TAM -->
+                    <div style="padding: 1.5rem 1.25rem; background: #f8fafc; border-right: 1px solid #e5e7eb;">
+                        <div style="font-size: 0.72rem; font-weight: 700; color: #64748b; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 0.4rem;">TAM · 전체 시장</div>
+                        <div style="font-size: 2rem; font-weight: 800; color: #0f172a; line-height: 1; margin-bottom: 0.3rem;">9,000억원</div>
+                        <div style="font-size: 0.78rem; color: #6b7280; margin-bottom: 0.75rem;">국내 컨택센터 AI 솔루션 잠재 시장 (연간)</div>
+                        <div style="font-size: 0.78rem; color: #374151; line-height: 1.6; background: white; border-radius: 0.4rem; padding: 0.6rem;">
+                            국내 컨택센터 상담원 약 30만명 × 평균 연봉 3,600만원 = 인건비 총량 약 10조원. AI 솔루션으로 대체·효율화 가능한 비중 약 9%(산업 평균 자기서비스율 전환 기준) = <strong>약 9,000억원/년</strong>
+                        </div>
+                    </div>
+                    <!-- SAM -->
+                    <div style="padding: 1.5rem 1.25rem; background: #eff6ff; border-right: 1px solid #bfdbfe;">
+                        <div style="font-size: 0.72rem; font-weight: 700; color: #1e40af; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 0.4rem;">SAM · 목표 가능 시장</div>
+                        <div style="font-size: 2rem; font-weight: 800; color: #1e40af; line-height: 1; margin-bottom: 0.3rem;">2,700억원</div>
+                        <div style="font-size: 0.78rem; color: #3b82f6; margin-bottom: 0.75rem;">이커머스·금융·전자 3개 세그먼트 합산</div>
+                        <div style="font-size: 0.78rem; color: #374151; line-height: 1.6; background: white; border-radius: 0.4rem; padding: 0.6rem;">
+                            TAM 중 우리가 진입 가능한 3개 업종(이커머스 ~40%, 금융·보험 ~30%, 전자·기술 ~30%) 비중 약 30% = <strong>2,700억원</strong>. 100~2,000석 규모 기업 기준.
+                        </div>
+                    </div>
+                    <!-- SOM -->
+                    <div style="padding: 1.5rem 1.25rem; background: #f0fdf4;">
+                        <div style="font-size: 0.72rem; font-weight: 700; color: #15803d; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 0.4rem;">SOM · 현실적 목표 시장</div>
+                        <div style="font-size: 2rem; font-weight: 800; color: #15803d; line-height: 1; margin-bottom: 0.3rem;">100~200억원</div>
+                        <div style="font-size: 0.78rem; color: #16a34a; margin-bottom: 0.75rem;">3년 내 ARR 기준 목표</div>
+                        <div style="font-size: 0.78rem; color: #374151; line-height: 1.6; background: white; border-radius: 0.4rem; padding: 0.6rem;">
+                            SAM 점유율 3~8% 목표. Y1 ARR 12억(10개월 MRR 1억 도달), Y2 ARR 50~80억(고객 100~200개사), Y3 ARR 150~200억(300~500개사). 초기 10억 투자 대비 Y3 ARR 150억이면 <strong>투자 회수 비율 15x</strong>.
+                        </div>
+                    </div>
+                </div>
+
+                <div style="background: #fefce8; border: 1px solid #fde68a; border-radius: 0.6rem; padding: 0.85rem 1rem; font-size: 0.82rem; color: #713f12; line-height: 1.65;">
+                    <strong>수치 기반 참고:</strong> 고용노동부 2023 콜센터 산업 실태조사(상담원 26.5만명), 국내 컨택센터 SaaS 도입률 현재 약 8%(Frost &amp; Sullivan 2023 APAC 조사 추정), 경쟁사 가격 공개 데이터(Genesys, 카카오i 추정치). 이커머스 CS 비중은 통계청 온라인 쇼핑 시장 규모 성장률에서 역산.
+                </div>
+            </div>
+
+            <!-- 타겟 시장 -->
+            <div class="card">
+                <div style="font-size: 1rem; font-weight: 700; color: #0f172a; margin-bottom: 0.5rem;">타겟 시장 및 진입 전략</div>
+                <p style="font-size: 0.88rem; color: #6b7280; margin-bottom: 1.25rem;">세 시장 모두 수요가 있지만, 초기 진입 순서가 중요하다. 이커머스로 레퍼런스를 쌓은 후 금융권으로 확장하는 것이 현실적인 경로다.</p>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th style="width: 15%;">산업</th>
+                            <th style="width: 30%;">핵심 페인포인트</th>
+                            <th style="width: 30%;">우리가 주는 가치</th>
+                            <th style="width: 15%;">진입 순서</th>
+                            <th style="width: 10%;">규모</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>이커머스</strong></td>
+                            <td>스파이크 시즌 대응 비용, 반복 문의(배송·환불)가 전체의 60%</td>
+                            <td>3일 셀프 온보딩, 보이스봇 자동 처리로 임시 채용 불필요</td>
+                            <td><span style="background: #dbeafe; color: #1e40af; font-size: 0.75rem; font-weight: 700; padding: 2px 8px; border-radius: 999px;">1순위</span></td>
+                            <td style="font-size: 0.85rem; color: #6b7280;">100~1,000석</td>
+                        </tr>
+                        <tr>
+                            <td><strong>금융·보험</strong></td>
+                            <td>합규 부담, AHT 단축 압박, 신입 온보딩 기간 장기화</td>
+                            <td>통화 자동 로깅·요약, Agent Assist로 AHT -23%</td>
+                            <td><span style="background: #ede9fe; color: #6d28d9; font-size: 0.75rem; font-weight: 700; padding: 2px 8px; border-radius: 999px;">2순위</span></td>
+                            <td style="font-size: 0.85rem; color: #6b7280;">1,000석+</td>
+                        </tr>
+                        <tr>
+                            <td><strong>전자·기술</strong></td>
+                            <td>다국어 기술 지원, 복잡한 제품 문의 처리</td>
+                            <td>도메인 특화 LLM 파인튜닝으로 정확도 확보</td>
+                            <td><span style="background: #ffedd5; color: #c2410c; font-size: 0.75rem; font-weight: 700; padding: 2px 8px; border-radius: 999px;">3순위</span></td>
+                            <td style="font-size: 0.85rem; color: #6b7280;">200~500석</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- 페르소나 -->
+            <div class="card">
+                <div style="font-size: 1rem; font-weight: 700; color: #0f172a; margin-bottom: 0.4rem;">핵심 페르소나 3인</div>
+                <p style="font-size: 0.88rem; color: #6b7280; margin-bottom: 1.25rem;">실제 구매 결정에 영향을 미치는 역할 기준으로 정의했다. 페르소나별로 우리 제품이 어떤 문제를 해결하는지 구체화했다.</p>
+
+                <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem;">
+
+                    <!-- 페르소나 1 -->
+                    <div class="persona-card">
+                        <div class="persona-header" style="background: linear-gradient(135deg, #eff6ff, #dbeafe);">
+                            <div class="persona-avatar" style="background: white;">🏦</div>
+                            <div>
+                                <div style="font-weight: 700; font-size: 0.95rem; color: #1e40af;">박지현 (45세)</div>
+                                <div style="font-size: 0.8rem; color: #3b82f6;">대형 보험사 CS센터장</div>
+                            </div>
+                        </div>
+                        <div class="persona-body">
+                            <div class="persona-section-label" style="color: #374151;">상황</div>
+                            <p class="persona-text">상담원 120명 관리, 연간 이탈률 28%. 금감원 합규 요건 강화로 통화 녹음·요약 자동화 필요성이 시급하다.</p>
+                            <div class="persona-section-label" style="color: #dc2626;">핵심 페인포인트</div>
+                            <div class="pain-item">AHT 350초 → 단축 압박 (KPI 달성 지연)</div>
+                            <div class="pain-item">신입 온보딩 3개월 (숙련까지 비용 과다)</div>
+                            <div class="pain-item">규정 위반 통화 사후 적발 시 법적 리스크</div>
+                            <div class="value-box" style="background: #eff6ff; border: 1px solid #bfdbfe;">
+                                <div style="font-size: 0.78rem; font-weight: 700; color: #1e40af; margin-bottom: 0.3rem;">우리 제품이 주는 것</div>
+                                <p style="font-size: 0.85rem; color: #1e3a8a;">Agent Assist로 AHT -23%, 통화 자동 요약·로깅으로 합규 부담 제거</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 페르소나 2 -->
+                    <div class="persona-card">
+                        <div class="persona-header" style="background: linear-gradient(135deg, #f0fdf4, #dcfce7);">
+                            <div class="persona-avatar" style="background: white;">🛒</div>
+                            <div>
+                                <div style="font-weight: 700; font-size: 0.95rem; color: #15803d;">김민수 (38세)</div>
+                                <div style="font-size: 0.8rem; color: #16a34a;">이커머스 CS운영팀장</div>
+                            </div>
+                        </div>
+                        <div class="persona-body">
+                            <div class="persona-section-label" style="color: #374151;">상황</div>
+                            <p class="persona-text">평상시 30명 운영, 블랙프라이데이·명절 시즌엔 120명 임시 증원. 매 시즌 채용·교육 반복 비용이 연 1.5억.</p>
+                            <div class="persona-section-label" style="color: #dc2626;">핵심 페인포인트</div>
+                            <div class="pain-item">스파이크 대응 비용 과다 (임시 인력 질 불균일)</div>
+                            <div class="pain-item">반복 문의(배송·환불)가 전체 60% 차지</div>
+                            <div class="pain-item">SI 도입엔 6개월+ → 시즌 맞추기 불가</div>
+                            <div class="value-box" style="background: #f0fdf4; border: 1px solid #bbf7d0;">
+                                <div style="font-size: 0.78rem; font-weight: 700; color: #15803d; margin-bottom: 0.3rem;">우리 제품이 주는 것</div>
+                                <p style="font-size: 0.85rem; color: #14532d;">셀프 온보딩 3일, 보이스봇이 반복 문의 자동 처리 → 시즌 임시 채용 불필요</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 페르소나 3 -->
+                    <div class="persona-card">
+                        <div class="persona-header" style="background: linear-gradient(135deg, #faf5ff, #f3e8ff);">
+                            <div class="persona-avatar" style="background: white;">🎧</div>
+                            <div>
+                                <div style="font-weight: 700; font-size: 0.95rem; color: #7c3aed;">이수진 (32세)</div>
+                                <div style="font-size: 0.8rem; color: #9333ea;">중견 금융사 수석 상담원</div>
+                            </div>
+                        </div>
+                        <div class="persona-body">
+                            <div class="persona-section-label" style="color: #374151;">상황</div>
+                            <p class="persona-text">하루 80통화 처리. 복잡한 금융 상품 문의 시 내부 인트라넷 3~4개 탭 동시 조회. 통화 후 수기 요약 20분 소요.</p>
+                            <div class="persona-section-label" style="color: #dc2626;">핵심 페인포인트</div>
+                            <div class="pain-item">통화 중 정보 찾느라 고객 대기 발생</div>
+                            <div class="pain-item">통화 후 수기 요약으로 집중력·생산성 소진</div>
+                            <div class="pain-item">격앙된 고객 응대 시 에스컬레이션 타이밍 놓침</div>
+                            <div class="value-box" style="background: #faf5ff; border: 1px solid #ddd6fe;">
+                                <div style="font-size: 0.78rem; font-weight: 700; color: #7c3aed; margin-bottom: 0.3rem;">우리 제품이 주는 것</div>
+                                <p style="font-size: 0.85rem; color: #4c1d95;">Agent Assist가 실시간 정보 추천·자동 요약, 감정 알림으로 선제 에스컬레이션 대응</p>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <!-- ③ 솔루션 -->
+        <div class="section" id="solution" style="margin-bottom: 3rem;">
+            <div class="section-label">03 솔루션</div>
+            <h2 class="section-title">우리는 무엇을 만드는가?</h2>
+            <p class="section-desc">3가지 핵심 제품으로 구성된다. 보이스봇은 기존 자산 기반, Agent Assist와 온보딩 위저드는 신규 개발.</p>
+
+            <!-- 제품 A -->
+            <div class="card">
+                <div style="display: flex; align-items: flex-start; gap: 1rem; margin-bottom: 1.25rem;">
+                    <div style="width: 2.75rem; height: 2.75rem; background: #ede9fe; border-radius: 0.6rem; display: flex; align-items: center; justify-content: center; font-size: 1.4rem; flex-shrink: 0;">🤖</div>
+                    <div>
+                        <div style="font-size: 0.75rem; font-weight: 700; color: #7c3aed; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 0.2rem;">제품 A · 기존 자산 기반</div>
+                        <div style="font-size: 1.1rem; font-weight: 700; color: #0f172a;">AI 보이스봇 (SaaS 래핑)</div>
+                    </div>
+                </div>
+                <p style="font-size: 0.9rem; color: #4b5563; margin-bottom: 1.25rem; line-height: 1.7;">
+                    고객 음성을 실시간으로 처리해 자동 응답하거나 상담원에게 전달하는 인바운드·아웃바운드 봇. 기존 코어 엔진을 SaaS 멀티테넌시 구조로 감싸고, 고객사별 API 과금을 붙이는 것이 핵심 작업이다.
+                </p>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; margin-bottom: 1.25rem;">
+                    <div style="background: #f8f4ff; border-radius: 0.6rem; padding: 0.9rem 1rem;">
+                        <div style="font-size: 0.78rem; font-weight: 700; color: #7c3aed; margin-bottom: 0.4rem;">핵심 기능</div>
+                        <ul class="checklist">
+                            <li>STT → LLM → TTS 파이프라인 (응답 지연 1.5~1.8초)</li>
+                            <li>하이브리드 RAG 기반 정책 정확 인용</li>
+                            <li>Closed-loop 태스크 자동 실행 (주소변경, 환불, 조회)</li>
+                            <li>부정 감정 감지 시 자동 상담원 전환</li>
+                        </ul>
+                    </div>
+                    <div style="background: #f8f4ff; border-radius: 0.6rem; padding: 0.9rem 1rem;">
+                        <div style="font-size: 0.78rem; font-weight: 700; color: #7c3aed; margin-bottom: 0.4rem;">기대 효과</div>
+                        <ul class="checklist">
+                            <li>자기서비스율 60%+ (업계 평균 35% 대비)</li>
+                            <li>통화당 처리 비용 -40%</li>
+                            <li>24/7 무중단 대응 (스파이크 무관)</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 제품 B -->
+            <div class="card">
+                <div style="display: flex; align-items: flex-start; gap: 1rem; margin-bottom: 1.25rem;">
+                    <div style="width: 2.75rem; height: 2.75rem; background: #dbeafe; border-radius: 0.6rem; display: flex; align-items: center; justify-content: center; font-size: 1.4rem; flex-shrink: 0;">👥</div>
+                    <div>
+                        <div style="font-size: 0.75rem; font-weight: 700; color: #1e40af; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 0.2rem;">제품 B · 완전 신규 개발</div>
+                        <div style="font-size: 1.1rem; font-weight: 700; color: #0f172a;">Agent Assist (상담원 AI 코파일럿)</div>
+                    </div>
+                </div>
+                <p style="font-size: 0.9rem; color: #4b5563; margin-bottom: 1.25rem; line-height: 1.7;">
+                    상담원이 고객과 통화하는 동안 실시간으로 정보를 추천하고 감정 변화를 알려주는 화면. 기존 보이스봇이 처리 못하는 복합·감정적 문의를 커버하면서 AHT를 단축시키는 핵심 프리미엄 기능이다.
+                    Business 플랜 업셀의 핵심 근거이며, 이 기능의 ROI가 수치로 바로 나타난다는 점에서 신규 개발 우선순위 1위다.
+                </p>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; margin-bottom: 1.25rem;">
+                    <div style="background: #f0f7ff; border-radius: 0.6rem; padding: 0.9rem 1rem;">
+                        <div style="font-size: 0.78rem; font-weight: 700; color: #1e40af; margin-bottom: 0.4rem;">핵심 기능</div>
+                        <ul class="checklist">
+                            <li>실시간 트랜스크립트 & 감정 분석</li>
+                            <li>동적 배틀카드 (고객 질문에 최적 정책 자동 추천)</li>
+                            <li>통화 후 자동 요약 → CRM 자동 저장</li>
+                            <li>고객 정보 패널 (계정 이력, 진행 중 이슈)</li>
+                        </ul>
+                    </div>
+                    <div style="background: #f0f7ff; border-radius: 0.6rem; padding: 0.9rem 1rem;">
+                        <div style="font-size: 0.78rem; font-weight: 700; color: #1e40af; margin-bottom: 0.4rem;">기대 효과</div>
+                        <ul class="checklist">
+                            <li>AHT 23% 단축 (파일롯 기준)</li>
+                            <li>신입 온보딩 기간 50% 감소</li>
+                            <li>통화 후 수기 작업 제거 (상담원 만족도 개선)</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 제품 C -->
+            <div class="card">
+                <div style="display: flex; align-items: flex-start; gap: 1rem; margin-bottom: 1.25rem;">
+                    <div style="width: 2.75rem; height: 2.75rem; background: #dcfce7; border-radius: 0.6rem; display: flex; align-items: center; justify-content: center; font-size: 1.4rem; flex-shrink: 0;">🚀</div>
+                    <div>
+                        <div style="font-size: 0.75rem; font-weight: 700; color: #15803d; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 0.2rem;">제품 C · 완전 신규 개발</div>
+                        <div style="font-size: 1.1rem; font-weight: 700; color: #0f172a;">고객사 셀프 온보딩 위저드</div>
+                    </div>
+                </div>
+                <p style="font-size: 0.9rem; color: #4b5563; margin-bottom: 1.25rem; line-height: 1.7;">
+                    고객이 가입부터 봇 설정, 실운영까지 3~5일 내 자체적으로 완료할 수 있는 4단계 가이드 UI.
+                    SaaS 모델의 TTF(Time to First Value) 단축이 핵심이고, 이 온보딩 경험의 완성도가 초기 레퍼런스 확보와 직결된다.
+                </p>
+                <div style="background: #f8fffe; border: 1px solid #a7f3d0; border-radius: 0.6rem; padding: 1rem 1.25rem;">
+                    <div style="font-size: 0.78rem; font-weight: 700; color: #15803d; margin-bottom: 0.75rem;">4단계 플로우</div>
+                    <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.5rem;">
+                        <div style="text-align: center; padding: 0.75rem 0.5rem; background: white; border-radius: 0.5rem; border: 1px solid #d1fae5;">
+                            <div style="font-size: 1.25rem; margin-bottom: 0.3rem;">🏢</div>
+                            <div style="font-size: 0.75rem; font-weight: 700; color: #15803d;">Step 1</div>
+                            <div style="font-size: 0.78rem; color: #4b5563; margin-top: 0.2rem;">회사 정보 입력<br>(산업·규모·통화량)</div>
+                        </div>
+                        <div style="text-align: center; padding: 0.75rem 0.5rem; background: white; border-radius: 0.5rem; border: 1px solid #d1fae5;">
+                            <div style="font-size: 1.25rem; margin-bottom: 0.3rem;">🤖</div>
+                            <div style="font-size: 0.75rem; font-weight: 700; color: #15803d;">Step 2</div>
+                            <div style="font-size: 0.78rem; color: #4b5563; margin-top: 0.2rem;">봇 페르소나 정의<br>(이름·인사말·톤)</div>
+                        </div>
+                        <div style="text-align: center; padding: 0.75rem 0.5rem; background: white; border-radius: 0.5rem; border: 1px solid #d1fae5;">
+                            <div style="font-size: 1.25rem; margin-bottom: 0.3rem;">📄</div>
+                            <div style="font-size: 0.75rem; font-weight: 700; color: #15803d;">Step 3</div>
+                            <div style="font-size: 0.78rem; color: #4b5563; margin-top: 0.2rem;">지식 업로드<br>(PDF·URL 자동 임베딩)</div>
+                        </div>
+                        <div style="text-align: center; padding: 0.75rem 0.5rem; background: white; border-radius: 0.5rem; border: 1px solid #d1fae5;">
+                            <div style="font-size: 1.25rem; margin-bottom: 0.3rem;">✅</div>
+                            <div style="font-size: 0.75rem; font-weight: 700; color: #15803d;">Step 4</div>
+                            <div style="font-size: 0.78rem; color: #4b5563; margin-top: 0.2rem;">샘플 통화 테스트<br>후 실운영 전환</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ④ 비즈니스 임팩트 -->
+        <div class="section" id="impact" style="margin-bottom: 3rem;">
+            <div class="section-label">04 비즈니스 임팩트</div>
+            <h2 class="section-title">얼마나 효과적인가?</h2>
+            <p class="section-desc">고객사가 얻는 효과와, 우리(뤼튼)가 SaaS 전환으로 얻는 사업적 이점</p>
+
+            <!-- 고객사 KPI -->
+            <div class="card">
+                <div style="font-size: 1rem; font-weight: 700; color: #0f172a; margin-bottom: 0.4rem;">고객사가 얻는 성과 지표</div>
+                <p style="font-size: 0.85rem; color: #6b7280; margin-bottom: 1.25rem;">수치는 기존 구축형 도입 고객사 실적 기반 + 파일롯 목표치. 세부 측정 방법론은 로드맵 Phase 1 성공 기준 참조.</p>
+                <div class="kpi-grid">
+                    <div class="kpi-card">
+                        <div class="kpi-value">60%+</div>
+                        <div class="kpi-label">자기서비스 해결률</div>
+                        <div class="kpi-sub">에스컬레이션 없이 완결<br>업계 평균 35% 대비</div>
+                    </div>
+                    <div class="kpi-card">
+                        <div class="kpi-value">-23%</div>
+                        <div class="kpi-label">AHT 단축</div>
+                        <div class="kpi-sub">Agent Assist 파일롯 기준<br>일일 처리량 30% 증가</div>
+                    </div>
+                    <div class="kpi-card">
+                        <div class="kpi-value">-40%</div>
+                        <div class="kpi-label">통화당 비용 절감</div>
+                        <div class="kpi-sub">자동화 + 상담원 효율화<br>조합 효과</div>
+                    </div>
+                    <div class="kpi-card">
+                        <div class="kpi-value">3일</div>
+                        <div class="kpi-label">온보딩 TTF</div>
+                        <div class="kpi-sub">SI 3~6개월 대비<br>30~60배 단축</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SI vs SaaS 비교 -->
+            <div class="card">
+                <div style="font-size: 1rem; font-weight: 700; color: #0f172a; margin-bottom: 0.4rem;">우리(뤼튼)가 얻는 사업적 전환 효과</div>
+                <p style="font-size: 0.85rem; color: #6b7280; margin-bottom: 1.25rem;">SaaS 전환이 단순히 기술적 변화가 아니라, 수익 모델의 구조적 개선임을 보여주는 비교다.</p>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th style="width: 22%;">비교 지표</th>
+                            <th style="width: 32%;">SI 모델 (현재)</th>
+                            <th style="width: 32%;">SaaS 모델 (목표)</th>
+                            <th style="width: 14%;">개선 방향</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>수익 구조</strong></td>
+                            <td>프로젝트 완료 시 일회성 정산</td>
+                            <td>월간 경상 수익 (MRR) 누적</td>
+                            <td><span style="color: #15803d; font-weight: 700;">예측 가능</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>고객 확보 주기</strong></td>
+                            <td>영업 3~6개월 + 구축 6개월+</td>
+                            <td>영업 1개월 + 온보딩 3일</td>
+                            <td><span style="color: #15803d; font-weight: 700;">20배 단축</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>확장성</strong></td>
+                            <td>프로젝트마다 별도 리소스 투입</td>
+                            <td>공유 인프라 위 수평 확장</td>
+                            <td><span style="color: #15803d; font-weight: 700;">무한 확장</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>고객 생애 가치</strong></td>
+                            <td>계약 종료 시 관계 단절</td>
+                            <td>갱신·업셀 통한 NRR 95%+ 목표</td>
+                            <td><span style="color: #15803d; font-weight: 700;">지속 성장</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>운영 마진</strong></td>
+                            <td>고객 증가 = 비용 비례 증가</td>
+                            <td>고객 증가 = 단위 비용 감소</td>
+                            <td><span style="color: #15803d; font-weight: 700;">규모의 경제</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- ⑤ 구현 전략 -->
+        <div class="section" id="implementation" style="margin-bottom: 3rem;">
+            <div class="section-label">05 구현 전략</div>
+            <h2 class="section-title">어떻게 만드는가?</h2>
+            <p class="section-desc">기존 자산 활용 범위, 4단계 개발 계획, 필요 리소스</p>
+
+            <!-- 자산 활용 테이블 -->
+            <div class="card">
+                <div style="font-size: 1rem; font-weight: 700; color: #0f172a; margin-bottom: 0.4rem;">기존 자산 활용 vs 신규 개발</div>
+                <p style="font-size: 0.85rem; color: #6b7280; margin-bottom: 1.25rem;">이미 검증된 자산이 전체의 약 60%. 나머지 40%만 신규 개발하면 SaaS 전환이 가능하다는 것이 이 기획의 핵심 전제다.</p>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th style="width: 22%;">자산</th>
+                            <th style="width: 15%;">현 상태</th>
+                            <th style="width: 35%;">SaaS 전환 작업</th>
+                            <th style="width: 14%;">개발 공수</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>보이스봇 코어 엔진</strong></td>
+                            <td><span style="color: #15803d; font-weight: 700;">✓ 검증됨</span></td>
+                            <td>멀티테넌시 격리 레이어 추가, 호출 API 표준화</td>
+                            <td>경미</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Elasticsearch + Neo4j RAG</strong></td>
+                            <td><span style="color: #15803d; font-weight: 700;">✓ 프로덕션</span></td>
+                            <td>테넌트별 인덱스 격리 (DLS 정책 적용)</td>
+                            <td>경미</td>
+                        </tr>
+                        <tr>
+                            <td><strong>React AdminPanel</strong></td>
+                            <td><span style="color: #15803d; font-weight: 700;">✓ 기존 UI</span></td>
+                            <td>다중 고객사 테넌트 대응 구조로 개선</td>
+                            <td>중간</td>
+                        </tr>
+                        <tr class="highlight">
+                            <td><strong>Agent Assist 화면</strong></td>
+                            <td><span style="color: #dc2626; font-weight: 700;">✗ 신규</span></td>
+                            <td>실시간 트랜스크립트·추천·감정 분석 UI 전체 설계</td>
+                            <td><strong>완전 신규</strong></td>
+                        </tr>
+                        <tr class="highlight">
+                            <td><strong>온보딩 위저드</strong></td>
+                            <td><span style="color: #dc2626; font-weight: 700;">✗ 신규</span></td>
+                            <td>4단계 셀프서비스 플로우, 지식 업로드 파이프라인</td>
+                            <td><strong>완전 신규</strong></td>
+                        </tr>
+                        <tr class="highlight">
+                            <td><strong>멀티테넌시 보안</strong></td>
+                            <td><span style="color: #dc2626; font-weight: 700;">✗ 미흡</span></td>
+                            <td>JWT + RBAC, 테넌트 간 데이터 격리 아키텍처 재설계</td>
+                            <td><strong>아키텍처 재설계</strong></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Phase 계획 -->
+            <div class="card">
+                <div style="font-size: 1rem; font-weight: 700; color: #0f172a; margin-bottom: 0.4rem;">4단계 배포 계획 (총 10개월)</div>
+                <p style="font-size: 0.85rem; color: #6b7280; margin-bottom: 1.25rem;">Phase 0이 완전히 끝나야 Phase 1이 시작 가능하다. 멀티테넌시 기반이 없는 상태에서 MVP 출시는 보안 사고 리스크가 있다.</p>
+
+                <div class="phase-card phase-0">
+                    <div class="phase-badge-new badge-0">Phase 0 · M1~M2 · 2개월</div>
+                    <div style="font-size: 0.95rem; font-weight: 700; color: #334155; margin-bottom: 0.5rem;">기반 정비 — SaaS 출시 가능한 인프라 완성</div>
+                    <p style="font-size: 0.88rem; color: #475569; margin-bottom: 0.75rem; line-height: 1.6;">이 단계를 건너뛰면 고객사 데이터가 섞이는 치명적 보안 사고 가능성이 있다. 빠른 MVP 욕심보다 기반 완성이 우선이다.</p>
+                    <ul class="checklist">
+                        <li>Elasticsearch DLS 정책으로 테넌트별 인덱스 격리</li>
+                        <li>JWT + RBAC 기반 권한 체계 설계</li>
+                        <li>과금 미터링 기초 인프라 구축</li>
+                    </ul>
+                </div>
+
+                <div class="phase-card phase-1">
+                    <div class="phase-badge-new badge-1">Phase 1 · M3 · 1개월</div>
+                    <div style="font-size: 0.95rem; font-weight: 700; color: #1e3a8a; margin-bottom: 0.5rem;">MVP 출시 — 첫 고객 온보딩 & 실운영</div>
+                    <p style="font-size: 0.88rem; color: #1e40af; margin-bottom: 0.75rem; line-height: 1.6;">이커머스 1~2개 고객사 파일롯 운영 시작. 이 시점의 TTF와 자기서비스율이 이후 영업 레퍼런스가 된다.</p>
+                    <ul class="checklist">
+                        <li>보이스봇 SaaS 래핑 완료 (호출 API 표준화, 과금 연동)</li>
+                        <li>Agent Assist 기본 버전 (트랜스크립트 + 지식 추천)</li>
+                        <li>온보딩 위저드 4단계 + 샘플 통화 테스트</li>
+                    </ul>
+                </div>
+
+                <div class="phase-card phase-2">
+                    <div class="phase-badge-new badge-2">Phase 2 · M4~M6 · 3개월</div>
+                    <div style="font-size: 0.95rem; font-weight: 700; color: #4c1d95; margin-bottom: 0.5rem;">기능 확장 — Business 플랜 출시 & 고객 만족도 증대</div>
+                    <p style="font-size: 0.88rem; color: #6d28d9; margin-bottom: 0.75rem; line-height: 1.6;">파일롯 고객 피드백을 반영하고, AHT 절감 효과가 수치로 확인되면 Business 플랜 영업 레버로 활용한다.</p>
+                    <ul class="checklist">
+                        <li>감정 분석 + 자동 에스컬레이션 고도화</li>
+                        <li>CRM 연동 (Salesforce, HubSpot 기본 API)</li>
+                        <li>LLMOps 대시보드 (프롬프트 A/B 테스트, 성능 모니터링)</li>
+                    </ul>
+                </div>
+
+                <div class="phase-card phase-3" style="margin-bottom: 0;">
+                    <div class="phase-badge-new badge-3">Phase 3 · M7~M10 · 4개월</div>
+                    <div style="font-size: 0.95rem; font-weight: 700; color: #7c2d12; margin-bottom: 0.5rem;">성숙화 — 경쟁 우위 확보 & 성과 기반 과금 전환</div>
+                    <p style="font-size: 0.88rem; color: #c2410c; margin-bottom: 0.75rem; line-height: 1.6;">누적 데이터를 기반으로 성과 측정 기준이 확립된 고객사에 한해 성과 기반 과금 옵션을 제공하고, 금융권 Enterprise 진입을 본격화한다.</p>
+                    <ul class="checklist">
+                        <li>도메인별 특화 모델 파인튜닝 (금융·이커머스·보험)</li>
+                        <li>성과 기반 과금 미터링 (Resolved Call 정의 및 추적)</li>
+                        <li>Enterprise 기능: 전용 DB 옵션, SLA 계약, 커스텀 연동</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- 리소스 -->
+            <div class="card">
+                <div style="font-size: 1rem; font-weight: 700; color: #0f172a; margin-bottom: 0.4rem;">필요 리소스</div>
+                <p style="font-size: 0.85rem; color: #6b7280; margin-bottom: 1.25rem;">총 6명 규모. MLOps 인재가 채용 시장에서 가장 빠듯하므로 조기 채용 시작이 필요하다.</p>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>역할</th>
+                            <th style="width: 12%;">인원</th>
+                            <th>주요 책임</th>
+                            <th style="width: 20%;">주요 Phase</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Backend Engineer</strong></td>
+                            <td>2명</td>
+                            <td>멀티테넌시 아키텍처, API 표준화, 과금 미터링</td>
+                            <td>Phase 0~1 집중</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Frontend Engineer</strong></td>
+                            <td>2명</td>
+                            <td>Agent Assist UI, 온보딩 위저드, AdminPanel 개선</td>
+                            <td>Phase 1~2 집중</td>
+                        </tr>
+                        <tr>
+                            <td><strong>MLOps Engineer</strong></td>
+                            <td>1명</td>
+                            <td>LLM 파인튜닝, 감정분석 모델, LLMOps 대시보드</td>
+                            <td>Phase 2~3 집중</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Product Manager</strong></td>
+                            <td>1명</td>
+                            <td>로드맵 실행, 고객 피드백 수집, 우선순위 관리</td>
+                            <td>전 Phase 상시</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- 하단 네비 -->
+        <div class="bottom-nav">
+            <a href="index.html" class="nav-btn">← 목차로 돌아가기</a>
+            <a href="wireframes.html" class="nav-btn">다음: 화면 설계 →</a>
+        </div>
+    </div>
+
 </body>
 </html>
