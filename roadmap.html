@@ -3,292 +3,666 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>제품 로드맵 - AICC</title>
+    <title>제품 로드맵 — AICC 솔루션 제품화 기획</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; }
-        h1 { @apply text-4xl font-bold mb-6 text-gray-900; }
-        h2 { @apply text-2xl font-bold mt-8 mb-4 text-gray-800 border-b-2 border-blue-500 pb-2; }
-        h3 { @apply text-lg font-bold mt-6 mb-2 text-gray-700; }
-        .phase-card { @apply p-6 rounded-lg border-2 mb-6; }
-        .phase-0 { @apply bg-gray-50 border-gray-300; }
-        .phase-1 { @apply bg-blue-50 border-blue-300; }
-        .phase-2 { @apply bg-green-50 border-green-300; }
-        .phase-3 { @apply bg-purple-50 border-purple-300; }
-        .feature-item { @apply p-3 mb-2 bg-white rounded border-l-4 text-sm; }
-        .feature-core { @apply border-l-blue-600; }
-        .feature-new { @apply border-l-green-600; }
-        .feature-enhance { @apply border-l-orange-600; }
-        .timeline { @apply relative mb-12; }
-        .timeline-item { @apply mb-8 relative pl-12; }
-        .timeline-dot { @apply absolute left-0 top-2 w-8 h-8 bg-blue-600 rounded-full border-4 border-white; }
-        table { @apply w-full border-collapse mb-4; }
-        th, td { @apply border border-gray-300 px-4 py-2 text-left; }
-        th { @apply bg-blue-100 font-bold; }
-        tr:nth-child(even) { @apply bg-gray-50; }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #f8fafc; color: #1f2937; }
+
+        /* 2-tier 네비 */
+        .top-nav { position: sticky; top: 0; z-index: 50; background: white; box-shadow: 0 1px 4px rgba(0,0,0,0.07); }
+        .nav-row-site { border-bottom: 1px solid #f1f5f9; padding: 0.5rem 0; }
+        .nav-row-page { background: #f8fafc; padding: 0.35rem 0; }
+        .nav-inner { max-width: 1000px; margin: 0 auto; padding: 0 2rem; display: flex; align-items: center; gap: 0.25rem; flex-wrap: wrap; }
+        .nav-home { font-size: 0.78rem; font-weight: 600; color: #9ca3af; text-decoration: none; padding: 0.25rem 0.6rem; border-radius: 999px; transition: all 0.15s; }
+        .nav-home:hover { color: #374151; }
+        .nav-divider { color: #d1d5db; margin: 0 0.1rem; }
+        .nav-doc { font-size: 0.8rem; font-weight: 600; color: #6b7280; text-decoration: none; padding: 0.3rem 0.75rem; border-radius: 999px; transition: all 0.15s; }
+        .nav-doc:hover { background: #eff6ff; color: #1e40af; }
+        .nav-doc.active { background: #1e40af; color: white; }
+        .nav-section { font-size: 0.74rem; font-weight: 500; color: #9ca3af; text-decoration: none; padding: 0.2rem 0.6rem; border-radius: 999px; transition: all 0.15s; }
+        .nav-section:hover { background: #f1f5f9; color: #374151; }
+
+        /* 레이아웃 */
+        .container { max-width: 1000px; margin: 0 auto; padding: 2.5rem 2rem 4rem; }
+        .section { scroll-margin-top: 84px; margin-bottom: 3rem; }
+
+        /* 공통 카드 */
+        .card { background: white; border-radius: 0.875rem; border: 1px solid #e5e7eb; box-shadow: 0 1px 3px rgba(0,0,0,0.05); padding: 2rem; margin-bottom: 1.25rem; }
+
+        /* 섹션 레이블 */
+        .section-label { display: inline-flex; align-items: center; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: #1e40af; background: #eff6ff; padding: 0.3rem 0.85rem; border-radius: 999px; margin-bottom: 0.75rem; }
+        .section-title { font-size: 1.65rem; font-weight: 800; color: #0f172a; margin-bottom: 0.4rem; }
+        .section-desc { font-size: 0.95rem; color: #6b7280; margin-bottom: 1.75rem; line-height: 1.65; }
+
+        /* 타임라인 바 */
+        .timeline-bar { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; margin-bottom: 1.5rem; border-radius: 0.75rem; overflow: hidden; border: 1px solid #e5e7eb; }
+        .tl-item { padding: 1rem 1.25rem; border-right: 1px solid #e5e7eb; }
+        .tl-item:last-child { border-right: none; }
+        .tl-phase { font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 0.25rem; }
+        .tl-name { font-size: 0.95rem; font-weight: 700; margin-bottom: 0.1rem; }
+        .tl-duration { font-size: 0.78rem; }
+
+        /* Phase 카드 */
+        .phase-card { border-radius: 0.875rem; border: 1.5px solid; padding: 1.75rem; margin-bottom: 1.25rem; }
+        .phase-0 { background: #f8fafc; border-color: #cbd5e1; }
+        .phase-1 { background: #eff6ff; border-color: #93c5fd; }
+        .phase-2 { background: #faf5ff; border-color: #c4b5fd; }
+        .phase-3 { background: #fff7ed; border-color: #fdba74; }
+
+        .phase-badge { display: inline-flex; align-items: center; font-size: 0.78rem; font-weight: 700; padding: 0.3rem 0.9rem; border-radius: 999px; margin-bottom: 1rem; }
+        .badge-0 { background: #e2e8f0; color: #475569; }
+        .badge-1 { background: #dbeafe; color: #1e40af; }
+        .badge-2 { background: #ede9fe; color: #6d28d9; }
+        .badge-3 { background: #ffedd5; color: #c2410c; }
+
+        .phase-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1rem; margin: 1rem 0; }
+        .meta-box { background: rgba(255,255,255,0.7); border-radius: 0.5rem; padding: 0.75rem 1rem; }
+        .meta-label { font-size: 0.72rem; font-weight: 700; color: #6b7280; text-transform: uppercase; letter-spacing: 0.04em; margin-bottom: 0.2rem; }
+        .meta-value { font-size: 1.05rem; font-weight: 800; color: #0f172a; }
+
+        .checklist { list-style: none; margin-top: 0.6rem; }
+        .checklist li { display: flex; align-items: flex-start; gap: 0.6rem; padding: 0.3rem 0; font-size: 0.88rem; color: #374151; line-height: 1.55; }
+        .checklist li::before { content: "✓"; font-weight: 800; color: #1e40af; flex-shrink: 0; margin-top: 0.05rem; }
+
+        .goal-box { border-radius: 0.6rem; padding: 0.9rem 1rem; margin-bottom: 1rem; font-size: 0.9rem; line-height: 1.65; }
+        .g0 { background: #f1f5f9; border: 1px solid #e2e8f0; }
+        .g1 { background: #dbeafe; border: 1px solid #93c5fd; }
+        .g2 { background: #ede9fe; border: 1px solid #c4b5fd; }
+        .g3 { background: #ffedd5; border: 1px solid #fdba74; }
+
+        .result-box { border-radius: 0.5rem; padding: 0.85rem 1rem; margin-top: 1rem; }
+        .r0 { background: rgba(255,255,255,0.6); border: 1px solid #cbd5e1; }
+        .r1 { background: rgba(255,255,255,0.6); border: 1px solid #93c5fd; }
+        .r2 { background: rgba(255,255,255,0.6); border: 1px solid #c4b5fd; }
+        .r3 { background: rgba(255,255,255,0.6); border: 1px solid #fdba74; }
+
+        .result-label { font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.5rem; }
+        .r0 .result-label { color: #475569; }
+        .r1 .result-label { color: #1e40af; }
+        .r2 .result-label { color: #6d28d9; }
+        .r3 .result-label { color: #c2410c; }
+
+        /* 데이터 테이블 */
+        .data-table { width: 100%; border-collapse: collapse; font-size: 0.87rem; }
+        .data-table th { background: #1e3a8a; color: white; font-weight: 600; padding: 10px 14px; text-align: left; font-size: 0.78rem; letter-spacing: 0.03em; }
+        .data-table td { padding: 11px 14px; border-bottom: 1px solid #f1f5f9; vertical-align: top; line-height: 1.6; color: #374151; }
+        .data-table tbody tr:last-child td { border-bottom: none; }
+        .data-table tbody tr:hover td { background: #f8faff; }
+
+        .phase-pill { display: inline-block; padding: 0.15rem 0.55rem; border-radius: 0.25rem; font-size: 0.75rem; font-weight: 700; }
+        .pill-0 { background: #e2e8f0; color: #475569; }
+        .pill-1 { background: #dbeafe; color: #1e40af; }
+        .pill-2 { background: #ede9fe; color: #6d28d9; }
+        .pill-3 { background: #ffedd5; color: #c2410c; }
+
+        /* 리스크 */
+        .risk-card { border-radius: 0.75rem; padding: 1.25rem 1.5rem; margin-bottom: 0.75rem; }
+        .risk-high { background: #fff5f5; border: 1.5px solid #fca5a5; }
+        .risk-mid { background: #fffbeb; border: 1.5px solid #fde68a; }
+        .risk-label { font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.75rem; }
+        .risk-high .risk-label { color: #dc2626; }
+        .risk-mid .risk-label { color: #d97706; }
+        .risk-item { margin-bottom: 0.75rem; padding-bottom: 0.75rem; border-bottom: 1px solid rgba(0,0,0,0.06); }
+        .risk-item:last-child { margin-bottom: 0; padding-bottom: 0; border-bottom: none; }
+        .risk-title { font-size: 0.9rem; font-weight: 700; color: #0f172a; margin-bottom: 0.3rem; }
+        .risk-body { font-size: 0.86rem; color: #4b5563; line-height: 1.6; }
+
+        /* 주의 박스 */
+        .warn-box { background: #fef9c3; border-left: 4px solid #ca8a04; border-radius: 0.5rem; padding: 1rem 1.25rem; margin: 1.25rem 0; font-size: 0.88rem; color: #78350f; line-height: 1.65; }
+
+        /* 하단 네비 */
+        .bottom-nav { display: flex; justify-content: space-between; align-items: center; margin-top: 3rem; padding-top: 1.5rem; border-top: 1px solid #e5e7eb; }
+        .nav-btn { display: inline-flex; align-items: center; gap: 0.4rem; font-size: 0.88rem; font-weight: 600; color: #1e40af; text-decoration: none; padding: 0.6rem 1.2rem; border-radius: 0.5rem; border: 1.5px solid #bfdbfe; transition: all 0.15s; }
+        .nav-btn:hover { background: #eff6ff; border-color: #1e40af; }
     </style>
 </head>
-<body class="bg-white text-gray-800">
-    <div class="max-w-5xl mx-auto p-8">
-        <h1>제품 로드맵 & 실행 계획</h1>
-        <p class="text-gray-600 mb-8">AICC 범용 SaaS 플랫폼의 4단계 개발 계획 (10개월, M1~M10)</p>
+<body>
 
-        <!-- 요약 표 -->
-        <div class="bg-blue-50 p-6 rounded-lg mb-8 border border-blue-300">
-            <h3 class="mb-4 font-bold">📊 전체 일정 및 리소스</h3>
-            <table>
-                <tr>
-                    <th>Phase</th>
-                    <th>기간</th>
-                    <th>목표</th>
-                    <th>리소스</th>
-                    <th>예산 (추정)</th>
-                </tr>
-                <tr>
-                    <td><strong>Phase 0</strong></td>
-                    <td>M1~M2 (2개월)</td>
-                    <td>기반 정비 (멀티테넌시, 보안)</td>
-                    <td>BE 2, MLOps 1</td>
-                    <td>2억</td>
-                </tr>
-                <tr>
-                    <td><strong>Phase 1 (MVP)</strong></td>
-                    <td>M3 (1개월)</td>
-                    <td>SaaS 베타 출시</td>
-                    <td>FE 2, BE 2, MLOps 1, PM 1, BD 1</td>
-                    <td>3억</td>
-                </tr>
-                <tr>
-                    <td><strong>Phase 2</strong></td>
-                    <td>M4~M6 (3개월)</td>
-                    <td>고급 기능 + 고객 확장</td>
-                    <td>FE 2, BE 2, MLOps 1, PM 1, BD 3</td>
-                    <td>4억</td>
-                </tr>
-                <tr>
-                    <td><strong>Phase 3</strong></td>
-                    <td>M7~M10 (4개월)</td>
-                    <td>성숙화 + 성과기반 과금</td>
-                    <td>FE 2, BE 2, MLOps 1, Sales 추가</td>
-                    <td>2억</td>
-                </tr>
-                <tr>
-                    <td colspan="5"><strong>합계: 10개월, 평균 6.5명, 개발 비용 ~11억원 (별도: GTM/마케팅 예산 1.5~10억원)</strong></td>
-                </tr>
-            </table>
-        </div>
-
-        <!-- Phase 0 -->
-        <div class="phase-card phase-0">
-            <div class="flex items-center mb-4">
-                <div class="text-4xl mr-4">🏗️</div>
-                <div>
-                    <h2 style="margin: 0; border: none;">Phase 0: 기반 정비</h2>
-                    <p class="text-sm text-gray-600">M1~M2 (2개월) | 목표: 멀티테넌시 아키텍처 완성</p>
-                </div>
-            </div>
-
-            <div class="space-y-3">
-                <div class="feature-item feature-core">
-                    <strong>🔐 멀티테넌시 데이터 격리</strong>
-                    <div class="text-xs text-gray-600 mt-1"><strong>MVP 보안 수준:</strong> Elasticsearch 인덱스 레벨 격리 (논리적 Dedicated), Neo4j 별도 DB, JWT 인증 강화 | DLS(Document Level Security) 구현은 Phase 2로 연기</div>
-                </div>
-                <div class="feature-item feature-core">
-                    <strong>⚙️ 보이스봇 코어 SaaS 래핑</strong>
-                    <div class="text-xs text-gray-600 mt-1">기존 엔진 → API 기반 호출, 테넌트 식별자 전달, 통화 과금 미터링 구조</div>
-                </div>
-                <div class="feature-item feature-enhance">
-                    <strong>🔑 계정 시스템 & 권한 관리</strong>
-                    <div class="text-xs text-gray-600 mt-1">사용자 인증 (OAuth2), 팀 기반 RBAC, API 키 관리</div>
-                </div>
-                <div class="feature-item feature-enhance">
-                    <strong>📊 기초 모니터링 & 로깅</strong>
-                    <div class="text-xs text-gray-600 mt-1">통화 로그, 에러 추적, SLA 기초 구축</div>
-                </div>
-            </div>
-
-            <div class="mt-4 p-3 bg-yellow-50 border border-yellow-300 rounded text-sm">
-                <strong>⚠️ 리스크:</strong> 멀티테넌시 보안 오류 (데이터 유출) → 검수 2회 필수 (내부, 외부 보안 감사)
+    <!-- 2-tier 네비게이션 -->
+    <nav class="top-nav">
+        <div class="nav-row-site">
+            <div class="nav-inner">
+                <a href="index.html" class="nav-home">← 목차</a>
+                <span class="nav-divider">|</span>
+                <a href="prd.html" class="nav-doc">1. PRD</a>
+                <a href="wireframes.html" class="nav-doc">2. 화면설계</a>
+                <a href="roadmap.html" class="nav-doc active">3. 로드맵</a>
+                <a href="pricing.html" class="nav-doc">4. 가격전략</a>
             </div>
         </div>
+        <div class="nav-row-page">
+            <div class="nav-inner">
+                <a href="#timeline" class="nav-section">01 전체 타임라인</a>
+                <a href="#phase0" class="nav-section">02 Phase 0</a>
+                <a href="#phase1" class="nav-section">03 Phase 1</a>
+                <a href="#phase2" class="nav-section">04 Phase 2</a>
+                <a href="#phase3" class="nav-section">05 Phase 3</a>
+                <a href="#dependency" class="nav-section">06 의존성 & 리스크</a>
+            </div>
+        </div>
+    </nav>
 
-        <!-- Phase 1 (MVP) -->
-        <div class="phase-card phase-1">
-            <div class="flex items-center mb-4">
-                <div class="text-4xl mr-4">🚀</div>
-                <div>
-                    <h2 style="margin: 0; border: none;">Phase 1: MVP 출시 (Beta)</h2>
-                    <p class="text-sm text-gray-600">M3 (1개월) | 목표: 첫 고객사 온보딩 & 베타 운영</p>
+    <!-- 히어로 헤더 -->
+    <div style="background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 60%, #3b82f6 100%); color: white; padding: 3.5rem 0 3rem;">
+        <div style="max-width: 1000px; margin: 0 auto; padding: 0 2rem;">
+            <div style="font-size: 0.8rem; font-weight: 700; color: #93c5fd; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 0.75rem;">제품 로드맵 · 산출물 3/4</div>
+            <h1 style="font-size: 2.75rem; font-weight: 800; line-height: 1.2; margin-bottom: 0.75rem;">제품 로드맵</h1>
+            <p style="font-size: 1.15rem; color: #bfdbfe; margin-bottom: 2rem; line-height: 1.6;">10개월 4-Phase 실행 계획 — 언제, 무엇을, 어떤 순서로 만들고, 어떤 리스크를 관리해야 하는가</p>
+            <div style="display: flex; gap: 2rem; font-size: 0.85rem; color: #93c5fd;">
+                <span>📊 4 Phase · 10개월</span>
+                <span>·</span>
+                <span>⏱ 읽기 시간 약 12분</span>
+                <span>·</span>
+                <span>👤 민정원</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+
+        <!-- 01 전체 타임라인 -->
+        <div class="section" id="timeline">
+            <div class="section-label">01 전체 타임라인</div>
+            <h2 class="section-title">10개월, 4단계 전환</h2>
+            <p class="section-desc">각 Phase는 독립적으로 설계됐지만 선행 Phase 없이는 착수 불가다. 특히 Phase 0 완료 전 Phase 1 착수는 보안 사고 리스크가 있다.</p>
+
+            <div class="card" style="padding: 0; overflow: hidden;">
+                <div class="timeline-bar">
+                    <div class="tl-item" style="background: #f8fafc;">
+                        <div class="tl-phase" style="color: #64748b;">Phase 0</div>
+                        <div class="tl-name" style="color: #334155;">기반 정비</div>
+                        <div class="tl-duration" style="color: #64748b;">M1~M2 · 2개월</div>
+                    </div>
+                    <div class="tl-item" style="background: #eff6ff;">
+                        <div class="tl-phase" style="color: #1e40af;">Phase 1</div>
+                        <div class="tl-name" style="color: #1e3a8a;">MVP 출시</div>
+                        <div class="tl-duration" style="color: #1e40af;">M3 · 1개월</div>
+                    </div>
+                    <div class="tl-item" style="background: #faf5ff;">
+                        <div class="tl-phase" style="color: #6d28d9;">Phase 2</div>
+                        <div class="tl-name" style="color: #4c1d95;">기능 확장</div>
+                        <div class="tl-duration" style="color: #6d28d9;">M4~M6 · 3개월</div>
+                    </div>
+                    <div class="tl-item" style="background: #fff7ed;">
+                        <div class="tl-phase" style="color: #c2410c;">Phase 3</div>
+                        <div class="tl-name" style="color: #7c2d12;">성숙화</div>
+                        <div class="tl-duration" style="color: #c2410c;">M7~M10 · 4개월</div>
+                    </div>
                 </div>
             </div>
 
-            <div class="space-y-3">
-                <div class="feature-item feature-new">
-                    <strong>🎯 고객사 온보딩 위저드 (완전 신규)</strong>
-                    <div class="text-xs text-gray-600 mt-1">4단계 셀프 서비스 / 회사정보 → 봇설정 → 지식업로드 → 테스트</div>
-                </div>
-                <div class="feature-item feature-new">
-                    <strong>🤖 Agent Assist 기본 기능 (완전 신규)</strong>
-                    <div class="text-xs text-gray-600 mt-1">실시간 트랜스크립트 + 지식 자동 추천 (배틀카드) | 감정 분석은 Phase 2에서 추가</div>
-                </div>
-                <div class="feature-item feature-enhance">
-                    <strong>📊 보이스봇 관리 콘솔 개선</strong>
-                    <div class="text-xs text-gray-600 mt-1">기존 AdminPanel → 대시보드 (KPI 카드), 통화 로그 조회</div>
-                </div>
-                <div class="feature-item feature-enhance">
-                    <strong>📈 기초 분석 & 보고</strong>
-                    <div class="text-xs text-gray-600 mt-1">일일 통화량, 자기서비스율, AHT 기초 메트릭</div>
-                </div>
+            <div class="card">
+                <div style="font-size: 0.95rem; font-weight: 700; color: #0f172a; margin-bottom: 1rem;">전체 리소스 & 예산 계획</div>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Phase</th>
+                            <th>기간</th>
+                            <th>팀 규모</th>
+                            <th>인건비</th>
+                            <th>외부비용</th>
+                            <th>합계</th>
+                            <th>핵심 마일스톤</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><span class="phase-pill pill-0">Phase 0</span></td>
+                            <td>M1~M2 (2개월)</td>
+                            <td>6명</td>
+                            <td>1.4억</td>
+                            <td>1.1억</td>
+                            <td style="font-weight: 700;">2.5억</td>
+                            <td>멀티테넌시 격리 완료, 보안 아키텍처 완성</td>
+                        </tr>
+                        <tr>
+                            <td><span class="phase-pill pill-1">Phase 1</span></td>
+                            <td>M3 (1개월)</td>
+                            <td>5명</td>
+                            <td>0.6억</td>
+                            <td>0.4억</td>
+                            <td style="font-weight: 700;">1.0억</td>
+                            <td>첫 고객사 온보딩, TTF 3일 입증</td>
+                        </tr>
+                        <tr>
+                            <td><span class="phase-pill pill-2">Phase 2</span></td>
+                            <td>M4~M6 (3개월)</td>
+                            <td>6명</td>
+                            <td>2.1억</td>
+                            <td>0.7억</td>
+                            <td style="font-weight: 700;">2.8억</td>
+                            <td>AHT -23% 달성, Business 플랜 출시, MRR 2천만+</td>
+                        </tr>
+                        <tr>
+                            <td><span class="phase-pill pill-3">Phase 3</span></td>
+                            <td>M7~M10 (4개월)</td>
+                            <td>8명</td>
+                            <td>3.1억</td>
+                            <td>0.6억</td>
+                            <td style="font-weight: 700;">3.7억</td>
+                            <td>성과 기반 과금 도입, MRR 1억, 고객 20개사+</td>
+                        </tr>
+                        <tr style="background: #f8fafc; font-weight: 700;">
+                            <td colspan="3" style="text-align: right; color: #0f172a;">합계</td>
+                            <td>7.2억</td>
+                            <td>2.8억</td>
+                            <td style="color: #1e40af; font-size: 1rem;">10억</td>
+                            <td style="color: #6b7280; font-size: 0.82rem;">10개월 전체</td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
 
-            <div class="mt-4 p-3 bg-green-50 border border-green-300 rounded text-sm">
-                <strong>✅ 성공 기준:</strong> 3개 이상 베타 고객사 가입, 월 1,000+통화, 자기서비스율 40% 이상
-            </div>
+            <!-- 예산 산정 근거 -->
+            <div class="card">
+                <div style="font-size: 0.95rem; font-weight: 700; color: #0f172a; margin-bottom: 0.4rem;">예산 산정 근거 — 포지션별 인건비 & Phase별 Breakdown</div>
+                <p style="font-size: 0.83rem; color: #6b7280; margin-bottom: 1.25rem; line-height: 1.6;">월 단가는 4대보험·복지비·장비 포함 <strong>Fully Loaded Cost</strong> 기준 (연봉 × 1.3 / 12개월). 외부비용은 인프라·보안감사·마케팅 등 비인건비 항목을 포함한다.</p>
 
-            <div class="mt-2 p-3 bg-yellow-50 border border-yellow-300 rounded text-sm">
-                <strong>⚠️ 리스크:</strong> 초기 고객 획득 지연 → 마케팅팀 조기 투입 필요
+                <!-- 인건비 기준표 -->
+                <div style="margin-bottom: 1.5rem;">
+                    <div style="font-size: 0.8rem; font-weight: 700; color: #475569; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.6rem;">인건비 기준 (월 단가)</div>
+                    <table class="data-table" style="font-size: 0.83rem;">
+                        <thead>
+                            <tr>
+                                <th style="width: 35%;">포지션</th>
+                                <th style="width: 15%;">등급</th>
+                                <th style="width: 25%;">월 단가 (Fully Loaded)</th>
+                                <th>비고</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>Backend Engineer</td><td>Senior</td><td style="font-weight: 700;">1,200만원</td><td>연봉 1.1억 기준</td></tr>
+                            <tr><td>ML/MLOps Engineer</td><td>Senior</td><td style="font-weight: 700;">1,500만원</td><td>채용 시장 희소, 연봉 1.4억 기준</td></tr>
+                            <tr><td>Frontend Engineer</td><td>Senior</td><td style="font-weight: 700;">1,100만원</td><td>연봉 1.0억 기준</td></tr>
+                            <tr><td>DevOps/Security</td><td>Senior</td><td style="font-weight: 700;">1,200만원</td><td>연봉 1.1억 기준</td></tr>
+                            <tr><td>QA Engineer</td><td>Mid</td><td style="font-weight: 700;">800만원</td><td>연봉 0.7억 기준</td></tr>
+                            <tr><td>Product Manager</td><td>Senior</td><td style="font-weight: 700;">1,100만원</td><td>연봉 1.0억 기준</td></tr>
+                            <tr><td>Sales/CS</td><td>Senior</td><td style="font-weight: 700;">1,000만원</td><td>연봉 0.9억 기준</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Phase별 Breakdown -->
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+
+                    <!-- Phase 0 -->
+                    <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 0.6rem; padding: 1rem;">
+                        <div style="font-size: 0.8rem; font-weight: 700; color: #475569; margin-bottom: 0.6rem;">Phase 0 · 2개월 · 6명 → <span style="color: #0f172a;">합계 2.5억</span></div>
+                        <table style="width: 100%; font-size: 0.78rem; border-collapse: collapse;">
+                            <tr style="border-bottom: 1px solid #e2e8f0;"><td style="padding: 0.25rem 0; color: #374151;">Backend ×2</td><td style="text-align: right; font-weight: 600;">1,200×2×2 = 4,800만</td></tr>
+                            <tr style="border-bottom: 1px solid #e2e8f0;"><td style="padding: 0.25rem 0; color: #374151;">ML Engineer ×1</td><td style="text-align: right; font-weight: 600;">1,500×1×2 = 3,000만</td></tr>
+                            <tr style="border-bottom: 1px solid #e2e8f0;"><td style="padding: 0.25rem 0; color: #374151;">DevOps/Security ×1</td><td style="text-align: right; font-weight: 600;">1,200×1×2 = 2,400만</td></tr>
+                            <tr style="border-bottom: 1px solid #e2e8f0;"><td style="padding: 0.25rem 0; color: #374151;">PM ×1</td><td style="text-align: right; font-weight: 600;">1,100×1×2 = 2,200만</td></tr>
+                            <tr style="border-bottom: 1px solid #e2e8f0;"><td style="padding: 0.25rem 0; color: #374151;">인건비 소계</td><td style="text-align: right; font-weight: 700; color: #1e40af;">14,400만 (1.4억)</td></tr>
+                            <tr style="border-bottom: 1px solid #e2e8f0;"><td style="padding: 0.25rem 0; color: #374151;">인프라 구축</td><td style="text-align: right;">2,500만</td></tr>
+                            <tr style="border-bottom: 1px solid #e2e8f0;"><td style="padding: 0.25rem 0; color: #374151;">보안감사·침투테스트</td><td style="text-align: right;">3,000만</td></tr>
+                            <tr style="border-bottom: 1px solid #e2e8f0;"><td style="padding: 0.25rem 0; color: #374151;">SOC2 컨설팅</td><td style="text-align: right;">2,000만</td></tr>
+                            <tr style="border-bottom: 1px solid #e2e8f0;"><td style="padding: 0.25rem 0; color: #374151;">도구·라이선스·예비</td><td style="text-align: right;">3,500만</td></tr>
+                            <tr><td style="padding: 0.3rem 0; font-weight: 700;">합계</td><td style="text-align: right; font-weight: 800; color: #0f172a;">25,400만 ≈ 2.5억</td></tr>
+                        </table>
+                    </div>
+
+                    <!-- Phase 1 -->
+                    <div style="background: #eff6ff; border: 1px solid #93c5fd; border-radius: 0.6rem; padding: 1rem;">
+                        <div style="font-size: 0.8rem; font-weight: 700; color: #1e40af; margin-bottom: 0.6rem;">Phase 1 · 1개월 · 5명 → <span style="color: #0f172a;">합계 1.0억</span></div>
+                        <table style="width: 100%; font-size: 0.78rem; border-collapse: collapse;">
+                            <tr style="border-bottom: 1px solid #bfdbfe;"><td style="padding: 0.25rem 0; color: #374151;">Backend ×2</td><td style="text-align: right; font-weight: 600;">1,200×2×1 = 2,400만</td></tr>
+                            <tr style="border-bottom: 1px solid #bfdbfe;"><td style="padding: 0.25rem 0; color: #374151;">Frontend ×2</td><td style="text-align: right; font-weight: 600;">1,100×2×1 = 2,200만</td></tr>
+                            <tr style="border-bottom: 1px solid #bfdbfe;"><td style="padding: 0.25rem 0; color: #374151;">PM ×1</td><td style="text-align: right; font-weight: 600;">1,100×1×1 = 1,100만</td></tr>
+                            <tr style="border-bottom: 1px solid #bfdbfe;"><td style="padding: 0.25rem 0; color: #374151;">인건비 소계</td><td style="text-align: right; font-weight: 700; color: #1e40af;">5,700만 (0.6억)</td></tr>
+                            <tr style="border-bottom: 1px solid #bfdbfe;"><td style="padding: 0.25rem 0; color: #374151;">인프라 운영</td><td style="text-align: right;">800만</td></tr>
+                            <tr style="border-bottom: 1px solid #bfdbfe;"><td style="padding: 0.25rem 0; color: #374151;">파일롯 지원·영업활동</td><td style="text-align: right;">1,500만</td></tr>
+                            <tr style="border-bottom: 1px solid #bfdbfe;"><td style="padding: 0.25rem 0; color: #374151;">예비비</td><td style="text-align: right;">1,700만</td></tr>
+                            <tr><td style="padding: 0.3rem 0; font-weight: 700;">합계</td><td style="text-align: right; font-weight: 800; color: #0f172a;">9,700만 ≈ 1억</td></tr>
+                        </table>
+                    </div>
+
+                    <!-- Phase 2 -->
+                    <div style="background: #faf5ff; border: 1px solid #c4b5fd; border-radius: 0.6rem; padding: 1rem;">
+                        <div style="font-size: 0.8rem; font-weight: 700; color: #6d28d9; margin-bottom: 0.6rem;">Phase 2 · 3개월 · 6명 → <span style="color: #0f172a;">합계 2.8억</span></div>
+                        <table style="width: 100%; font-size: 0.78rem; border-collapse: collapse;">
+                            <tr style="border-bottom: 1px solid #ddd6fe;"><td style="padding: 0.25rem 0; color: #374151;">Backend ×2</td><td style="text-align: right; font-weight: 600;">1,200×2×3 = 7,200만</td></tr>
+                            <tr style="border-bottom: 1px solid #ddd6fe;"><td style="padding: 0.25rem 0; color: #374151;">Frontend ×1</td><td style="text-align: right; font-weight: 600;">1,100×1×3 = 3,300만</td></tr>
+                            <tr style="border-bottom: 1px solid #ddd6fe;"><td style="padding: 0.25rem 0; color: #374151;">MLOps ×1</td><td style="text-align: right; font-weight: 600;">1,500×1×3 = 4,500만</td></tr>
+                            <tr style="border-bottom: 1px solid #ddd6fe;"><td style="padding: 0.25rem 0; color: #374151;">QA ×1 + PM ×1</td><td style="text-align: right; font-weight: 600;">(800+1,100)×3 = 5,700만</td></tr>
+                            <tr style="border-bottom: 1px solid #ddd6fe;"><td style="padding: 0.25rem 0; color: #374151;">인건비 소계</td><td style="text-align: right; font-weight: 700; color: #6d28d9;">20,700만 (2.1억)</td></tr>
+                            <tr style="border-bottom: 1px solid #ddd6fe;"><td style="padding: 0.25rem 0; color: #374151;">인프라 운영</td><td style="text-align: right;">3,000만</td></tr>
+                            <tr style="border-bottom: 1px solid #ddd6fe;"><td style="padding: 0.25rem 0; color: #374151;">마케팅·B2B 영업</td><td style="text-align: right;">2,000만</td></tr>
+                            <tr style="border-bottom: 1px solid #ddd6fe;"><td style="padding: 0.25rem 0; color: #374151;">예비비</td><td style="text-align: right;">2,100만</td></tr>
+                            <tr><td style="padding: 0.3rem 0; font-weight: 700;">합계</td><td style="text-align: right; font-weight: 800; color: #0f172a;">27,800만 ≈ 2.8억</td></tr>
+                        </table>
+                    </div>
+
+                    <!-- Phase 3 -->
+                    <div style="background: #fff7ed; border: 1px solid #fdba74; border-radius: 0.6rem; padding: 1rem;">
+                        <div style="font-size: 0.8rem; font-weight: 700; color: #c2410c; margin-bottom: 0.6rem;">Phase 3 · 4개월 · 8명 → <span style="color: #0f172a;">합계 3.7억</span></div>
+                        <table style="width: 100%; font-size: 0.78rem; border-collapse: collapse;">
+                            <tr style="border-bottom: 1px solid #fed7aa;"><td style="padding: 0.25rem 0; color: #374151;">Backend ×2</td><td style="text-align: right; font-weight: 600;">1,200×2×4 = 9,600만</td></tr>
+                            <tr style="border-bottom: 1px solid #fed7aa;"><td style="padding: 0.25rem 0; color: #374151;">Frontend ×1</td><td style="text-align: right; font-weight: 600;">1,100×1×4 = 4,400만</td></tr>
+                            <tr style="border-bottom: 1px solid #fed7aa;"><td style="padding: 0.25rem 0; color: #374151;">MLOps ×2</td><td style="text-align: right; font-weight: 600;">1,500×2×4 = 12,000만</td></tr>
+                            <tr style="border-bottom: 1px solid #fed7aa;"><td style="padding: 0.25rem 0; color: #374151;">QA ×1 + PM ×1 + Sales ×1</td><td style="text-align: right; font-weight: 600;">(800+1,100+1,000)×4 = 11,600만</td></tr>
+                            <tr style="border-bottom: 1px solid #fed7aa;"><td style="padding: 0.25rem 0; color: #374151;">인건비 소계</td><td style="text-align: right; font-weight: 700; color: #c2410c;">37,600만 (3.1억 반올림)</td></tr>
+                            <tr style="border-bottom: 1px solid #fed7aa;"><td style="padding: 0.25rem 0; color: #374151;">인프라 운영 (확장)</td><td style="text-align: right;">4,000만</td></tr>
+                            <tr style="border-bottom: 1px solid #fed7aa;"><td style="padding: 0.25rem 0; color: #374151;">Enterprise 영업·파트너</td><td style="text-align: right;">2,000만</td></tr>
+                            <tr style="border-bottom: 1px solid #fed7aa;"><td style="padding: 0.25rem 0; color: #374151;">예비비</td><td style="text-align: right;">3,600만</td></tr>
+                            <tr><td style="padding: 0.3rem 0; font-weight: 700;">합계</td><td style="text-align: right; font-weight: 800; color: #0f172a;">47,200만 ≈ 3.7억</td></tr>
+                        </table>
+                        <div style="font-size: 0.75rem; color: #9a3412; margin-top: 0.6rem; background: #ffedd5; border-radius: 0.3rem; padding: 0.4rem 0.6rem;">* MLOps ×2는 Phase 2 계속 1명 + Phase 3 신규 채용 1명</div>
+                    </div>
+
+                </div>
             </div>
         </div>
 
-        <!-- Phase 2 -->
-        <div class="phase-card phase-2">
-            <div class="flex items-center mb-4">
-                <div class="text-4xl mr-4">⚡</div>
-                <div>
-                    <h2 style="margin: 0; border: none;">Phase 2: 고도화 & 확장</h2>
-                    <p class="text-sm text-gray-600">M4~M6 (3개월) | 목표: 고급 기능 + 다수 고객 안정화</p>
-                </div>
-            </div>
+        <!-- 02 Phase 0 -->
+        <div class="section" id="phase0">
+            <div class="section-label">02 Phase 0 · M1~M2</div>
+            <h2 class="section-title">기반 정비 — SaaS 출시 가능한 상태 만들기</h2>
+            <p class="section-desc">이 단계를 건너뛰면 고객사 데이터가 혼재되는 치명적 보안 사고가 발생할 수 있다. 빠른 출시보다 기반 완성이 절대적 우선순위다.</p>
 
-            <div class="space-y-3">
-                <div class="feature-item feature-new">
-                    <strong>😊 감정 분석 + 에스컬레이션</strong>
-                    <div class="text-xs text-gray-600 mt-1">실시간 감정 스코어링 (-1.0~1.0), 부정 임계값 기반 자동 전환 | 정확도 목표: 금융/이커머스별 80% 이상 (평균 75%+) | M4~M5 파인튜닝 + 2주 버퍼 확보</div>
-                </div>
-                <div class="feature-item feature-new">
-                    <strong>📝 자동 통화 요약 + CRM 연동</strong>
-                    <div class="text-xs text-gray-600 mt-1">2초 내 요약 생성, Salesforce/HubSpot 기본 API 연동</div>
-                </div>
-                <div class="feature-item feature-new">
-                    <strong>📞 아웃바운드 캠페인 (추가 기능)</strong>
-                    <div class="text-xs text-gray-600 mt-1">프로모션/설문 자동 전화, 콜 리스트 관리 | PRD에서 정의한 기본 기능 외 추가 범위</div>
-                </div>
-                <div class="feature-item feature-enhance">
-                    <strong>🧪 LLMOps 대시보드</strong>
-                    <div class="text-xs text-gray-600 mt-1">프롬프트 A/B 테스트, 응답 품질 평가 (Eval), 모델 버전 관리</div>
-                </div>
-                <div class="feature-item feature-enhance">
-                    <strong>👥 팀 기반 권한 관리</strong>
-                    <div class="text-xs text-gray-600 mt-1">부서별 역할 분리 (관리자, 분석가, 상담원)</div>
-                </div>
-                <div class="feature-item feature-enhance">
-                    <strong>📋 성과 기반 과금 감사 로그</strong>
-                    <div class="text-xs text-gray-600 mt-1">해결 판정 근거 기록, 분쟁 해결 7~10일 SLA, 투명성 확보 | Phase 2 파일럿 운영 중 정확도 검증</div>
-                </div>
-            </div>
+            <div class="phase-card phase-0">
+                <div class="phase-badge badge-0">Phase 0 · 기반 정비 · 2개월</div>
 
-            <div class="mt-4 p-3 bg-green-50 border border-green-300 rounded text-sm">
-                <strong>✅성공 기준:</strong> 50+ 고객사, 월 200K+ 통화, 자기서비스율 55% 이상, NPS 45+
-            </div>
+                <div class="goal-box g0">
+                    <strong>핵심 목표:</strong> 다수의 고객사가 동시에 플랫폼을 사용하더라도 서로의 데이터를 절대 볼 수 없는 <strong>보안 격리 아키텍처</strong> 완성. 이 없이는 Phase 1 착수 불가.
+                </div>
 
-            <div class="mt-2 p-3 bg-yellow-50 border border-yellow-300 rounded text-sm">
-                <strong>⚠️ 리스크:</strong> 감정분석 정확도 80% 미달 → 도메인별 모델 미세 조정 필요 (추가 3주) | 이 경우 Phase 3 일정 1개월 연기 가능성
-            </div>
-        </div>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; margin-bottom: 1.25rem;">
+                    <div>
+                        <div style="font-size: 0.82rem; font-weight: 700; color: #475569; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.6rem;">실행 항목</div>
+                        <ul class="checklist">
+                            <li style="--check-color: #475569"><strong>멀티테넌시 데이터 격리</strong> — Elasticsearch DLS(Document-Level Security) 구현, 테넌트 간 인덱스 격리</li>
+                            <li><strong>JWT 인증 체계</strong> — 고객사별 토큰 발급·검증 로직</li>
+                            <li><strong>RBAC 권한 관리</strong> — 역할별 접근 제어 (관리자·상담원·감독자)</li>
+                            <li><strong>감시 통화 합법성</strong> — 녹음 동의·개인정보 처리 동의 프로세스</li>
+                            <li><strong>과금 미터링 기초</strong> — 통화 단위 집계 인프라</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <div style="font-size: 0.82rem; font-weight: 700; color: #475569; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.6rem;">팀 구성 (6명)</div>
+                        <ul class="checklist">
+                            <li>Backend 2명 — 아키텍처 설계, Elasticsearch DLS</li>
+                            <li>Security 1명 (외부 또는 겸직) — 침투 테스트, 보안 감사</li>
+                            <li>DevOps 1명 — 인프라 구성, CI/CD</li>
+                            <li>Frontend 1명 — AdminPanel 기본 틀</li>
+                            <li>PM 1명 — 요구사항 정의, 의존성 관리</li>
+                        </ul>
+                    </div>
+                </div>
 
-        <!-- Phase 3 -->
-        <div class="phase-card phase-3">
-            <div class="flex items-center mb-4">
-                <div class="text-4xl mr-4">🏆</div>
-                <div>
-                    <h2 style="margin: 0; border: none;">Phase 3: 성숙화 & 경쟁력 강화</h2>
-                    <p class="text-sm text-gray-600">M7~M10 (4개월) | 목표: 도메인 특화 + 성과기반 과금</p>
+                <div class="result-box r0">
+                    <div class="result-label">Phase 0 완료 기준 (이것이 되어야 Phase 1 착수)</div>
+                    <ul class="checklist">
+                        <li>고객사 A 데이터가 고객사 B에게 노출되지 않음 (침투 테스트 통과)</li>
+                        <li>SOC 2 / ISO 27001 준비 문서 초안 완성</li>
+                        <li>통화 1건당 과금 단위 집계 정상 동작</li>
+                    </ul>
                 </div>
-            </div>
-
-            <div class="space-y-3">
-                <div class="feature-item feature-new">
-                    <strong>🎓 도메인별 특화 모델</strong>
-                    <div class="text-xs text-gray-600 mt-1">금융 규정 특화, 이커머스 물류 최적화, 보험 청구 자동화</div>
-                </div>
-                <div class="feature-item feature-new">
-                    <strong>💰 성과 기반 과금 (Outcome-based)</strong>
-                    <div class="text-xs text-gray-600 mt-1">해결된 통화(Resolved Call) 기준 미터링, 기본료 + 건당 과금</div>
-                </div>
-                <div class="feature-item feature-new">
-                    <strong>🏪 마켓플레이스 / API 생태계</strong>
-                    <div class="text-xs text-gray-600 mt-1">CRM 플러그인, 써드파티 API 확장 (결제, 배송 등)</div>
-                </div>
-                <div class="feature-item feature-enhance">
-                    <strong>🛡️ AI 거버넌스 & 규정 준수</strong>
-                    <div class="text-xs text-gray-600 mt-1">편향 감지, 개인정보 처리 모니터링, 규제 위반 알림</div>
-                </div>
-                <div class="feature-item feature-enhance">
-                    <strong>📱 모바일 앱 (선택사항)</strong>
-                    <div class="text-xs text-gray-600 mt-1">iOS/Android 네이티브 앱, 모바일 상담원 지원</div>
-                </div>
-            </div>
-
-            <div class="mt-4 p-3 bg-green-50 border border-green-300 rounded text-sm">
-                <strong>✅ 성공 기준 (M10 말 기준):</strong> 200+ 고객사, ARR $10M+, 자기서비스율 60%+, NPS 50+ | 월 15~20% 고객 성장률 달성 시 목표 달성
-            </div>
-
-            <div class="mt-2 p-3 bg-yellow-50 border border-yellow-300 rounded text-sm">
-                <strong>⚠️ 리스크:</strong> 성과기반 과금 미터링 오류 → 감사(Audit) 로그 필수
             </div>
         </div>
 
-        <!-- 의존성 및 리스크 -->
-        <h2>🚨 의존성 & 리스크 관리</h2>
+        <!-- 03 Phase 1 -->
+        <div class="section" id="phase1">
+            <div class="section-label">03 Phase 1 · M3</div>
+            <h2 class="section-title">MVP — 첫 고객사 실운영 시작</h2>
+            <p class="section-desc">"3일 온보딩"을 실제로 입증하는 단계. 이커머스 파일롯 고객 1~2개사를 통해 가설을 검증하고 영업 레퍼런스를 확보한다.</p>
 
-        <div class="grid grid-cols-2 gap-6 mb-8">
-            <!-- 의존성 -->
-            <div class="bg-blue-50 p-4 rounded border border-blue-300">
-                <h3 class="mb-3">🔗 크리티컬 의존성</h3>
-                <ul class="space-y-2 text-sm">
-                    <li><strong>Phase 0 → Phase 1:</strong> 멀티테넌시 보안 검수 완료 필수</li>
-                    <li><strong>Phase 1 → Phase 2:</strong> 초기 고객 3+사 온보딩 성공</li>
-                    <li><strong>Phase 2 → Phase 3:</strong> CRM 연동 API 표준화 완료</li>
-                    <li><strong>Phase 2 내 (M4~M5):</strong> 감정분석 모델 정확도 80% 이상 달성 (미달시 Phase 3 연기)</li>
-                </ul>
+            <div class="phase-card phase-1">
+                <div class="phase-badge badge-1">Phase 1 · MVP · 1개월</div>
+
+                <div class="goal-box g1">
+                    <strong>핵심 목표:</strong> TTF(Time to First Value) <strong>3일 달성</strong>을 파일롯 고객사 2개 이상에서 입증. 이 숫자가 이후 영업의 핵심 메시지가 된다.
+                </div>
+
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; margin-bottom: 1.25rem;">
+                    <div>
+                        <div style="font-size: 0.82rem; font-weight: 700; color: #1e40af; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.6rem;">실행 항목</div>
+                        <ul class="checklist">
+                            <li><strong>보이스봇 SaaS 래핑</strong> — 기존 엔진에 API 표준화, 호출 단위 과금 연동</li>
+                            <li><strong>Agent Assist 기본</strong> — 실시간 트랜스크립트 + 지식 검색 자동 추천</li>
+                            <li><strong>온보딩 위저드 4단계</strong> — 셀프서비스로 3일 내 세팅 완료</li>
+                            <li><strong>관리 콘솔 기본</strong> — KPI 대시보드, 봇 설정, 통화 로그</li>
+                            <li><strong>24/7 기술 지원팀</strong> — 파일롯 기간 긴급 대응</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <div style="font-size: 0.82rem; font-weight: 700; color: #1e40af; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.6rem;">팀 구성 (5명)</div>
+                        <ul class="checklist">
+                            <li>Backend 2명 — API 표준화, 과금 연동</li>
+                            <li>Frontend 2명 — Agent Assist, 온보딩 위저드</li>
+                            <li>PM 1명 — 파일롯 고객 관리, 피드백 수집</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="result-box r1">
+                    <div class="result-label">Phase 1 성공 기준</div>
+                    <ul class="checklist">
+                        <li>파일롯 고객사 2개 이상 — 온보딩 3일 이내 완료</li>
+                        <li>자기서비스율 60%+ 달성 (파일롯 2주 운영 기준)</li>
+                        <li>TTF 3일 달성 → 마케팅 자료 및 영업 레퍼런스로 활용</li>
+                        <li>SI 대비 비용 80% 절감 수치 산출</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- 04 Phase 2 -->
+        <div class="section" id="phase2">
+            <div class="section-label">04 Phase 2 · M4~M6</div>
+            <h2 class="section-title">기능 확장 — Business 플랜과 수익 가속화</h2>
+            <p class="section-desc">파일롯 피드백을 반영하고, AHT 절감 수치가 나오면 Business 플랜(500만원/월)의 영업 레버로 활용한다. 고객 6개사, MRR 2천만원이 이 단계의 목표다.</p>
+
+            <div class="phase-card phase-2">
+                <div class="phase-badge badge-2">Phase 2 · 기능 확장 · 3개월</div>
+
+                <div class="goal-box g2">
+                    <strong>핵심 목표:</strong> Agent Assist를 통한 <strong>AHT -23% 달성</strong>을 수치로 증명하고, 이를 Business 플랜 업셀의 근거로 활용. 고객 6개사 확보, MRR 2천만원 돌파.
+                </div>
+
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; margin-bottom: 1.25rem;">
+                    <div>
+                        <div style="font-size: 0.82rem; font-weight: 700; color: #6d28d9; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.6rem;">실행 항목</div>
+                        <ul class="checklist">
+                            <li><strong>감정 분석 & 에스컬레이션 자동화</strong> — 실시간 감정 점수, 부정 임계값 자동 상담원 전환</li>
+                            <li><strong>통화 자동 요약 + CRM 연동</strong> — Salesforce·HubSpot 기본 API 연동</li>
+                            <li><strong>LLMOps 대시보드</strong> — 프롬프트 A/B 테스트, 응답 품질 추적</li>
+                            <li><strong>아웃바운드 캠페인</strong> — 보이스봇 기반 자동 발신 (프로모션·설문)</li>
+                            <li><strong>고급 RBAC</strong> — 팀·부서별 권한 분리</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <div style="font-size: 0.82rem; font-weight: 700; color: #6d28d9; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.6rem;">팀 구성 (6명)</div>
+                        <ul class="checklist">
+                            <li>Backend 2명 — CRM 연동, 아웃바운드 로직</li>
+                            <li>Frontend 1명 — LLMOps 대시보드</li>
+                            <li>MLOps 1명 — 감정 분석 모델, 프롬프트 최적화</li>
+                            <li>QA 1명 — 감정 분석 정확도 검증</li>
+                            <li>PM 1명 — Business 플랜 출시 관리</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="result-box r2">
+                    <div class="result-label">Phase 2 성공 기준</div>
+                    <ul class="checklist">
+                        <li>AHT -23% 달성 (파일롯 고객사 Before/After 비교)</li>
+                        <li>고객사 6개사 이상 확보 (Starter 2 + Business 4 기준, 500만×4+150만×2=2,300만)</li>
+                        <li>MRR 2천만원+ 돌파</li>
+                        <li>NRR 120% 달성 — 기존 고객의 플랜 업그레이드로 확인</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- 05 Phase 3 -->
+        <div class="section" id="phase3">
+            <div class="section-label">05 Phase 3 · M7~M10</div>
+            <h2 class="section-title">성숙화 — 성과 기반 과금과 경쟁 우위 확보</h2>
+            <p class="section-desc">누적된 데이터를 기반으로 성과 측정 기준이 확립된 고객에게 성과 기반 과금 옵션을 제공하고, 금융권 Enterprise 진입을 본격화한다.</p>
+
+            <div class="phase-card phase-3">
+                <div class="phase-badge badge-3">Phase 3 · 성숙화 · 4개월</div>
+
+                <div class="goal-box g3">
+                    <strong>핵심 목표:</strong> <strong>"우리는 고객의 성과에만 돈을 받는다"</strong> — 성과 기반 과금 도입으로 신뢰·점유율 극대화. MRR 1억원, 고객 20개사+.
+                </div>
+
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; margin-bottom: 1.25rem;">
+                    <div>
+                        <div style="font-size: 0.82rem; font-weight: 700; color: #c2410c; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.6rem;">실행 항목</div>
+                        <ul class="checklist">
+                            <li><strong>도메인별 특화 LLM</strong> — 금융·이커머스·보험 도메인 파인튜닝</li>
+                            <li><strong>성과 기반 과금 미터링</strong> — "해결된 통화" 판정 로직, 투명한 청구 대시보드</li>
+                            <li><strong>Enterprise 기능</strong> — 전용 DB 옵션, SLA 계약, 커스텀 연동</li>
+                            <li><strong>마켓플레이스</strong> — 3rd-party CRM 플러그인, 파트너 API</li>
+                            <li><strong>AI 모니터링</strong> — 편향 감지, 규정 위반 자동 알림</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <div style="font-size: 0.82rem; font-weight: 700; color: #c2410c; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.6rem;">팀 구성 (8명)</div>
+                        <ul class="checklist">
+                            <li>Backend 2명 — Enterprise 기능, 미터링 인프라</li>
+                            <li>Frontend 1명 — 성과 대시보드, 마켓플레이스</li>
+                            <li>MLOps 2명 — 도메인 특화 모델 파인튜닝</li>
+                            <li>Sales/CS 1명 — Enterprise 영업, 금융권 대응</li>
+                            <li>PM 1명 + QA 1명</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="result-box r3">
+                    <div class="result-label">Phase 3 성공 기준</div>
+                    <ul class="checklist">
+                        <li>MRR 1억원 달성 (Series A 펀딩 준비 트리거)</li>
+                        <li>고객 이탈률 2% 이하 (성과 기반 신뢰 반영)</li>
+                        <li>성과 기반 과금 고객사 5개 이상 (전환 동의 기준)</li>
+                        <li>금융·보험 Enterprise 고객 2개사 이상 확보</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- 06 의존성 & 리스크 -->
+        <div class="section" id="dependency">
+            <div class="section-label">06 의존성 & 리스크</div>
+            <h2 class="section-title">기능 의존성 맵 & 주요 리스크</h2>
+            <p class="section-desc">의존성을 무시한 병렬 개발은 재작업과 통합 지연을 유발한다. 각 기능의 선행 조건을 확인하고, 착수 순서를 지켜야 한다.</p>
+
+            <!-- 의존성 테이블 -->
+            <div class="card">
+                <div style="font-size: 0.95rem; font-weight: 700; color: #0f172a; margin-bottom: 0.4rem;">기능 의존성 맵</div>
+                <p style="font-size: 0.85rem; color: #6b7280; margin-bottom: 1.25rem;">각 기능은 선행 기능이 완료된 이후에만 착수 가능하다. Phase 0 → 1 → 2 → 3 순서는 협의 불가한 강제 순서다.</p>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th style="width: 28%;">기능</th>
+                            <th style="width: 12%;">Phase</th>
+                            <th style="width: 28%;">선행 의존 기능</th>
+                            <th>이유</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>멀티테넌시 데이터 격리</strong></td>
+                            <td><span class="phase-pill pill-0">Phase 0</span></td>
+                            <td style="color: #94a3b8; font-style: italic;">없음 (최상위 선행)</td>
+                            <td>모든 SaaS 기능의 기반. 없으면 고객사 데이터 혼재 위험.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>JWT 인증 / RBAC</strong></td>
+                            <td><span class="phase-pill pill-0">Phase 0</span></td>
+                            <td style="color: #94a3b8; font-style: italic;">없음 (최상위 선행)</td>
+                            <td>멀티테넌시와 병렬 개발 가능. 단, Phase 1 전 반드시 완료.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>보이스봇 SaaS 래핑</strong></td>
+                            <td><span class="phase-pill pill-1">Phase 1</span></td>
+                            <td><strong>멀티테넌시 격리</strong></td>
+                            <td>API 호출 단위 과금은 테넌트 식별이 선행되어야 설정 가능.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>온보딩 위저드</strong></td>
+                            <td><span class="phase-pill pill-1">Phase 1</span></td>
+                            <td><strong>JWT 인증 / RBAC</strong></td>
+                            <td>계정 생성·권한 부여 로직이 완성되어야 위저드 진행 가능.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Agent Assist 기본</strong></td>
+                            <td><span class="phase-pill pill-1">Phase 1</span></td>
+                            <td><strong>보이스봇 SaaS 래핑</strong></td>
+                            <td>실시간 트랜스크립트 스트림은 보이스봇 API 표준화 이후 연결 가능.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>감정 분석 & 에스컬레이션</strong></td>
+                            <td><span class="phase-pill pill-2">Phase 2</span></td>
+                            <td><strong>Agent Assist 기본</strong></td>
+                            <td>트랜스크립트 스트림 위에 감정 모델을 올리는 구조. 기반 없이 독립 개발 불가.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>통화 요약 + CRM 연동</strong></td>
+                            <td><span class="phase-pill pill-2">Phase 2</span></td>
+                            <td><strong>Agent Assist 기본</strong></td>
+                            <td>요약 생성은 트랜스크립트 데이터 기반. CRM 연동은 요약 포맷 확정 후 가능.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>성과 기반 과금 미터링</strong></td>
+                            <td><span class="phase-pill pill-3">Phase 3</span></td>
+                            <td><strong>보이스봇 API + 감정 분석</strong></td>
+                            <td>"해결된 통화" 판정은 에스컬레이션 여부(감정 분석)와 완결 로그(API) 둘 다 필요.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>도메인별 특화 LLM</strong></td>
+                            <td><span class="phase-pill pill-3">Phase 3</span></td>
+                            <td><strong>LLMOps 대시보드 (Phase 2)</strong></td>
+                            <td>A/B 테스트 결과로 파인튜닝 방향 결정. 충분한 트래픽 없이 만들면 과적합.</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="warn-box">
+                    <strong>⚠️ 주의:</strong> Phase 1 착수 조건은 Phase 0 전체 완료. Phase 0가 지연되면 MVP 일정이 1:1로 밀린다. 멀티테넌시 격리와 RBAC는 병렬로 진행하되 Phase 0 내에 모두 완료해야 한다.
+                </div>
             </div>
 
             <!-- 리스크 -->
-            <div class="bg-red-50 p-4 rounded border border-red-300">
-                <h3 class="mb-3">⚠️ 주요 리스크 & 대응</h3>
-                <ul class="space-y-2 text-sm">
-                    <li><strong>기술:</strong> 멀티테넌시 성능 저하 → 로드 테스트 조기 실행</li>
-                    <li><strong>시장:</strong> 초기 고객 확보 어려움 → 참조 고객(Ref) 기반 판매</li>
-                    <li><strong>규제:</strong> 금융권 감시 강화 → 컴플라이언스팀 조기 투입</li>
-                    <li><strong>인력:</strong> MLOps 인재 부족 → Phase 0부터 채용 시작</li>
-                </ul>
+            <div style="font-size: 1rem; font-weight: 700; color: #0f172a; margin-bottom: 1rem; margin-top: 0.5rem;">주요 리스크 & 대응</div>
+
+            <div class="risk-card risk-high">
+                <div class="risk-label">🔴 High Priority</div>
+                <div class="risk-item">
+                    <div class="risk-title">멀티테넌시 보안 침해</div>
+                    <div class="risk-body">고객 데이터 유출 발생 시 신뢰 추락과 법적 책임이 동시에 발생. <strong>대응:</strong> 외부 보안 감사팀 고용, Phase 0 완료 후 월간 침투 테스트 정례화.</div>
+                </div>
+                <div class="risk-item">
+                    <div class="risk-title">초기 고객 확보 지연</div>
+                    <div class="risk-body">Phase 1 완료 후에도 실제 고객이 없으면 PMF 검증이 불가능하고 투자 리스크가 급증. <strong>대응:</strong> Phase 0 시작 시점부터 이커머스 알파 고객 사전 확보, 무료 파일롯 제공.</div>
+                </div>
+                <div class="risk-item">
+                    <div class="risk-title">감정 분석 정확도 문제</div>
+                    <div class="risk-body">도메인별(금융·이커머스·보험)로 감정 표현 방식이 달라 공통 모델의 오분류율이 높을 수 있음. <strong>대응:</strong> 고객사별 파인튜닝, 초기 3개월 수동 검수 병행.</div>
+                </div>
+            </div>
+
+            <div class="risk-card risk-mid">
+                <div class="risk-label">🟡 Medium Priority</div>
+                <div class="risk-item">
+                    <div class="risk-title">CRM 연동 복잡도 과소평가</div>
+                    <div class="risk-body">Salesforce·HubSpot API는 버전 차이, 커스텀 필드 등 변수가 많아 일정 초과 위험. <strong>대응:</strong> MVP에는 기본 API만 포함하고 Phase 2에서 점진적 확장. 연동 파트너사 활용 검토.</div>
+                </div>
+                <div class="risk-item">
+                    <div class="risk-title">MLOps 인재 확보 어려움</div>
+                    <div class="risk-body">LLM 파인튜닝·감정 분석 경험 보유 인력이 시장에서 매우 타이트. Phase 2 시작 전 채용이 늦어지면 감정 분석 일정이 통째로 밀림. <strong>대응:</strong> Phase 0 시작 시점에 채용 공고, 대학원 인턴십·외주 파트너 병행 준비.</div>
+                </div>
             </div>
         </div>
 
-        <!-- 마일스톤 -->
-        <h2>📍 주요 마일스톤</h2>
-        <div class="space-y-4">
-            <div class="bg-gray-50 p-4 rounded border-l-4 border-gray-600">
-                <strong>M2 말:</strong> 멀티테넌시 아키텍처 + 보안 검수 완료
-            </div>
-            <div class="bg-gray-50 p-4 rounded border-l-4 border-blue-600">
-                <strong>M3 말:</strong> MVP 베타 출시 (3+ 고객사, 월 1K+ 통화)
-            </div>
-            <div class="bg-gray-50 p-4 rounded border-l-4 border-green-600">
-                <strong>M6 말:</strong> Phase 2 완료 (50+ 고객사, 자기서비스율 55%)
-            </div>
-            <div class="bg-gray-50 p-4 rounded border-l-4 border-purple-600">
-                <strong>M10 말:</strong> Phase 3 완료 (200+ 고객사, 성과기반 과금 운영중)
-            </div>
-        </div>
-
-        <!-- 하단 네비게이션 -->
-        <hr class="my-12 border-gray-300">
-        <div class="flex justify-between text-sm text-gray-600">
-            <a href="wireframes.html" class="text-blue-600 hover:underline">← 이전: 화면 설계</a>
-            <a href="index.html" class="text-blue-600 hover:underline">목차로 돌아가기</a>
-            <a href="pricing.html" class="text-blue-600 hover:underline">다음: 가격 전략 →</a>
+        <!-- 하단 네비 -->
+        <div class="bottom-nav">
+            <a href="wireframes.html" class="nav-btn">← 화면설계</a>
+            <a href="pricing.html" class="nav-btn">다음: 가격전략 →</a>
         </div>
     </div>
+
 </body>
 </html>
